@@ -290,71 +290,59 @@ graph TB
 
 ## 🚀 Getting Started
 
-### **1. Prerequisites**
-- Node.js 20+ 
-- PostgreSQL 15+
-- Redis 7+
-- Docker & Kubernetes (for production)
-- AI service API keys (OpenAI, Anthropic, Google AI)
+### **Docker Development**
 
-### **2. Quick Start**
+Docker lets frontend developers run the app without installing Node.js dependencies, running Prisma commands, or installing PostgreSQL on the host.
 
-```bash
-# Clone the repository
-git clone https://github.com/your-org/miv-platform.git
-cd miv-platform
+Prerequisite:
 
-# Install dependencies
-npm install
+- Docker Desktop or Docker Engine
 
-# Set up environment variables
-cp .env.example .env.local
-# Edit .env.local with your configuration
+Run these commands from the `miv` frontend folder.
 
-# Set up database
-npm run db:setup
-
-# Start development server
-npm run dev
-```
-
-Visit [http://localhost:3000](http://localhost:3000) to see the application running!
-
-### **3. Production Deployment**
+Start:
 
 ```bash
-# Build for production
-npm run build
-
-# Deploy with Docker
-docker build -t miv-platform .
-docker run -p 3000:3000 miv-platform
-
-# Or deploy to Kubernetes
-kubectl apply -f k8s/
+docker compose up -d
 ```
 
-### **4. Environment Configuration**
+Logs:
 
 ```bash
-# Database
-DATABASE_URL="postgresql://username:password@localhost:5432/miv_platform"
-REDIS_URL="redis://localhost:6379"
-
-# Authentication
-AUTH0_DOMAIN="your-domain.auth0.com"
-AUTH0_CLIENT_ID="your-client-id"
-AUTH0_CLIENT_SECRET="your-client-secret"
-
-# AI Services
-OPENAI_API_KEY="your-openai-api-key"
-ANTHROPIC_API_KEY="your-anthropic-api-key"
-GOOGLE_AI_API_KEY="your-google-ai-api-key"
-
-# Infrastructure
-ELASTICSEARCH_URL="http://localhost:9200"
-KAFKA_BROKERS="localhost:9092"
+docker compose logs -f frontend
 ```
+
+Stop:
+
+```bash
+docker compose down
+```
+
+Rebuild:
+
+```bash
+docker compose up -d --build
+```
+
+Delete local Docker data:
+
+```bash
+docker compose down -v
+```
+
+Warning: `docker compose down -v` deletes local database data and named-volume data.
+
+The Compose setup starts only the frontend and PostgreSQL. The frontend container uses `postgres` as the internal database hostname:
+
+```bash
+DATABASE_URL=postgresql://vpms:vpms_password@postgres:5432/vpms
+```
+
+Use `localhost` from your host browser, for example [http://localhost:3000](http://localhost:3000). Use `postgres` only from containers on the Compose network.
+
+The frontend source is bind-mounted into `/app`, while `/app/node_modules` and `/app/.next` use named volumes so the host mount does not hide dependencies installed during the image build.
+
+The container entrypoint runs `npx prisma generate`, `npx prisma migrate deploy`, then `npm run dev -- --hostname 0.0.0.0`.
 
 ---
 

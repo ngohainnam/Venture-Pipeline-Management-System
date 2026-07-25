@@ -99,6 +99,13 @@ miv/
 └── tsconfig.json                   # TypeScript Configuration
 ```
 
+## Next.js Configuration
+
+- `next.config.ts` is the single authoritative Next.js configuration file.
+- `/backend/:path*` is proxied to `NEXT_PUBLIC_BACKEND_URL`, then `PUBLIC_BACKEND_URL`, then `http://localhost:3001`.
+- Local network development origins can be configured with `NEXT_ALLOWED_DEV_ORIGINS` as a comma-separated list, for example `NEXT_ALLOWED_DEV_ORIGINS=10.0.2.2,192.168.1.50`.
+- `images.unoptimized` is retained because the app does not currently define a remote image host allowlist; image optimization can be revisited when image sources are known and configured.
+
 ## 🗑️ **Removed Files & Directories**
 
 ### **Development/Testing Files:**

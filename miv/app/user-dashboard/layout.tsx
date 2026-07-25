@@ -2,9 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { MobileNav } from "@/components/mobile-nav";
 import { Breadcrumb } from "@/components/breadcrumb";
-import { Search, Bell, Moon, HelpCircle, Download, User } from "lucide-react";
+import { MobileLoadingState } from "@/components/mobile/mobile-loading-state";
+import { MobilePage } from "@/components/mobile/mobile-page";
+import { Search, HelpCircle } from "lucide-react";
 import UserSidebar from "@/components/user/user-sidebar";
 
 interface UserData {
@@ -54,11 +55,10 @@ export default function UserDashboardLayout({
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="flex items-center space-x-2">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-          <span className="text-gray-600">Loading...</span>
-        </div>
+      <div className="min-h-screen bg-gray-50">
+        <MobilePage className="flex items-center justify-center">
+          <MobileLoadingState label="Loading dashboard" />
+        </MobilePage>
       </div>
     );
   }

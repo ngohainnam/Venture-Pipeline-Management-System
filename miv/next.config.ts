@@ -1,18 +1,28 @@
 import type { NextConfig } from "next";
 
+const backend =
+  process.env.NEXT_PUBLIC_BACKEND_URL ||
+  process.env.PUBLIC_BACKEND_URL ||
+  "http://localhost:3001";
+
+const allowedDevOrigins = process.env.NEXT_ALLOWED_DEV_ORIGINS
+  ?.split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
 const nextConfig: NextConfig = {
   images: {
+    // Required for the current app because no remote image host allowlist is configured.
     unoptimized: true,
   },
-  allowedDevOrigins: ['10.0.2.2', '192.168.1.102'],
+  ...(allowedDevOrigins?.length ? { allowedDevOrigins } : {}),
   async rewrites() {
-    const backend = process.env.NEXT_PUBLIC_BACKEND_URL || process.env.PUBLIC_BACKEND_URL || 'http://localhost:3001'
     return [
       {
-        source: '/backend/:path*',
+        source: "/backend/:path*",
         destination: `${backend}/:path*`,
       },
-    ]
+    ];
   },
 };
 
