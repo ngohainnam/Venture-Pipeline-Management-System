@@ -1,30 +1,13 @@
 services:
-  postgres:
-    image: postgres:16-bookworm
-    environment:
-      POSTGRES_USER: vpms
-      POSTGRES_PASSWORD: vpms_password
-      POSTGRES_DB: vpms
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
-      interval: 5s
-      timeout: 5s
-      retries: 12
-
   frontend:
     build:
       context: .
-    depends_on:
-      postgres:
-        condition: service_healthy
     environment:
       NODE_ENV: development
       NEXT_TELEMETRY_DISABLED: "1"
       NEXTAUTH_URL: ${NEXTAUTH_URL:-http://localhost:3000}
       NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-development-only-change-me}
-      DATABASE_URL: postgresql://vpms:vpms_password@postgres:5432/vpms
+      DATABASE_URL: ${DATABASE_URL:-file:./dev.db}
       NEXT_PUBLIC_BACKEND_URL: ${NEXT_PUBLIC_BACKEND_URL:-http://host.docker.internal:3001}
       PUBLIC_BACKEND_URL: ${PUBLIC_BACKEND_URL:-http://host.docker.internal:3001}
       NEXT_ALLOWED_DEV_ORIGINS: ${NEXT_ALLOWED_DEV_ORIGINS:-}
@@ -35,8 +18,9 @@ services:
       - "host.docker.internal:host-gateway"
     command: >
       sh -c "npm install
-      && npx prisma generate
-      && npx prisma migrate deploy
+      && npm run db:generate
+      && npm run db:push
+      && npm run db:seed
       && npm run dev -- --hostname 0.0.0.0"
     ports:
       - "${FRONTEND_PORT:-3000}:3000"
@@ -46,8 +30,6 @@ services:
       - frontend_next:/app/.next
 
 volumes:
-  postgres_data:
-    name: vpms_postgres_data
   frontend_node_modules:
     name: vpms_frontend_node_modules
   frontend_next:

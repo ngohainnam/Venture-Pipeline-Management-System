@@ -6,7 +6,7 @@ import { Breadcrumb } from "@/components/breadcrumb";
 import { MobileLoadingState } from "@/components/mobile/mobile-loading-state";
 import { MobilePage } from "@/components/mobile/mobile-page";
 import { Search, HelpCircle } from "lucide-react";
-import UserSidebar from "@/components/user/user-sidebar";
+import UserSidebar from "@/components/user-dashboard/user-sidebar";
 
 interface UserData {
   firstName: string;

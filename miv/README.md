@@ -290,9 +290,27 @@ graph TB
 
 ## 🚀 Getting Started
 
+### **Local Development**
+
+Run these commands from the `miv` frontend folder.
+
+```bash
+npm i
+npm run db:generate
+npm run db:push
+npm run db:seed
+npm run dev
+```
+
+The local development database is SQLite at `prisma/dev.db`:
+
+```bash
+DATABASE_URL=file:./dev.db
+```
+
 ### **Docker Development**
 
-Docker lets frontend developers run the app without installing Node.js dependencies, running Prisma commands, or installing PostgreSQL on the host.
+Docker runs the same setup sequence as local development against the same SQLite database file.
 
 Prerequisite:
 
@@ -332,17 +350,17 @@ docker compose down -v
 
 Warning: `docker compose down -v` deletes local database data and named-volume data.
 
-The Compose setup starts only the frontend and PostgreSQL. The frontend container uses `postgres` as the internal database hostname:
+The Compose setup starts the frontend only. The frontend container uses the bind-mounted `prisma/dev.db` file:
 
 ```bash
-DATABASE_URL=postgresql://vpms:vpms_password@postgres:5432/vpms
+DATABASE_URL=file:./dev.db
 ```
 
-Use `localhost` from your host browser, for example [http://localhost:3000](http://localhost:3000). Use `postgres` only from containers on the Compose network.
+Use `localhost` from your host browser, for example [http://localhost:3000](http://localhost:3000).
 
 The frontend source is bind-mounted into `/app`, while `/app/node_modules` and `/app/.next` use named volumes so the host mount does not hide dependencies installed during the image build.
 
-The container entrypoint runs `npx prisma generate`, `npx prisma migrate deploy`, then `npm run dev -- --hostname 0.0.0.0`.
+The container command runs `npm install`, `npm run db:generate`, `npm run db:push`, `npm run db:seed`, then `npm run dev -- --hostname 0.0.0.0`.
 
 ---
 
