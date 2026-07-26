@@ -15,10 +15,8 @@ RUN npm ci
 
 COPY . .
 
-RUN chmod +x ./docker-entrypoint.sh \
-  && npx prisma generate
+RUN npx prisma generate
 
 EXPOSE 3000
 
-ENTRYPOINT ["./docker-entrypoint.sh"]
 CMD ["npm", "run", "dev", "--", "--hostname", "0.0.0.0"]
