@@ -49,9 +49,9 @@
     "dotenv": "^17.2.1",
     "lucide-react": "^0.536.0",
     "mongodb": "^6.19.0",
-    "next": "^16.2.1",
-    "next-auth": "^4.24.11",
-    "nodemailer": "^7.0.7",
+    "next": "^16.2.12",
+    "next-auth": "^4.24.15",
+    "nodemailer": "^9.0.3",
     "openai": "^5.12.0",
     "react": "^19.0.0",
     "react-day-picker": "^9.10.0",
@@ -66,17 +66,23 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
+    "@eslint/eslintrc": "^3.3.6",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "15.2.4",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.2.12",
     "prisma": "^6.13.0",
     "tailwindcss": "^4.1.11",
     "tsx": "^4.20.3",
     "typescript": "^5"
+  },
+  "overrides": {
+    "brace-expansion": "^5.0.8",
+    "esbuild": "^0.28.1",
+    "postcss": "^8.5.23",
+    "sharp": "^0.35.3"
   },
   "engines": {
     "node": ">=20.9.0"
