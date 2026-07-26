@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, VentureStage } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
@@ -8,7 +8,14 @@ export async function POST() {
     console.log('🌱 Starting GEDSI metrics seeding for portfolio companies...')
 
     // Get all portfolio companies (ventures with portfolio stages)
-    const portfolioStages = ['FUNDED', 'EXITED', 'SERIES_A', 'SERIES_B', 'SERIES_C', 'SEED']
+    const portfolioStages: VentureStage[] = [
+      'FUNDED',
+      'EXITED',
+      'SERIES_A',
+      'SERIES_B',
+      'SERIES_C',
+      'SEED'
+    ]
     const ventures = await prisma.venture.findMany({
       where: {
         stage: {

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { VentureStage } from '@prisma/client'
 import { prisma } from '@/lib/prisma'
 
 function monthsAgoDate(monthsAgo: number): Date {
@@ -38,7 +39,7 @@ export async function POST(_request: NextRequest) {
       const name = ventureNames[i]
       const createdAt = monthsAgoDate(5 - i)
       const location = ['Phnom Penh, Cambodia','Vientiane, Laos','Hanoi, Vietnam','Yangon, Myanmar','Bangkok, Thailand'][i]
-      const stage = i >= 3 ? 'SERIES_A' : i >= 1 ? 'REVIEW' : 'ASSESSMENT'
+      const stage: VentureStage = i >= 3 ? 'SERIES_A' : i >= 1 ? 'DUE_DILIGENCE' : 'SCREENING'
       const contactEmail = `${name.toLowerCase().replace(/\s+/g,'')}@example.com`
       const existing = await prisma.venture.findFirst({ where: { name } })
       let venture

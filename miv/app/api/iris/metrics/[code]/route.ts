@@ -4,10 +4,10 @@ import { prisma } from '@/lib/prisma';
 // GET /api/iris/metrics/[code] - Get specific IRIS metric by code
 export async function GET(
   request: NextRequest,
-  { params }: { params: { code: string } }
+  { params }: { params: Promise<{ code: string }> }
 ) {
   try {
-    const { code } = params;
+    const { code } = await params;
 
     if (!code) {
       return NextResponse.json(
@@ -29,7 +29,7 @@ export async function GET(
     }
 
     // Suggest GEDSI category based on content
-    function suggestGedsiCategory(item: any): 'Gender' | 'Disability' | 'Social Inclusion' | 'Cross-cutting' | undefined {
+    function suggestGedsiCategory(item: { code: string; name: string; description: string | null }): 'Gender' | 'Disability' | 'Social Inclusion' | 'Cross-cutting' | undefined {
       const hay = `${item.code} ${item.name} ${item.description || ''}`.toLowerCase()
       
       if (hay.includes('women') || hay.includes('female') || hay.includes('gender') || hay.includes('girl')) {

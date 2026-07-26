@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { Prisma, WorkflowRunStatus } from '@prisma/client'
 import { prisma } from '@/lib/prisma'
 
 export async function POST(request: NextRequest) {
@@ -125,7 +126,7 @@ export async function POST(request: NextRequest) {
 
     // Create some sample workflow runs
     const sampleRuns = []
-    const statuses = ['SUCCEEDED', 'SUCCEEDED', 'SUCCEEDED', 'FAILED', 'RUNNING']
+    const statuses: WorkflowRunStatus[] = ['SUCCEEDED', 'SUCCEEDED', 'SUCCEEDED', 'FAILED', 'RUNNING']
     
     for (let i = 0; i < createdWorkflows.length; i++) {
       const workflow = createdWorkflows[i]
@@ -160,7 +161,7 @@ export async function POST(request: NextRequest) {
               ],
               failedStep: 0,
               error: 'Email service unavailable'
-            } : null,
+            } : Prisma.JsonNull,
             errorMessage: status === 'FAILED' ? 'Email service unavailable' : null,
             startedAt,
             finishedAt

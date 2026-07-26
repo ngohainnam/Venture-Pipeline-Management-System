@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/prisma';
 import { z } from 'zod';
 
@@ -222,7 +223,7 @@ export async function POST(request: NextRequest) {
         location: validatedData.location,
         isAllDay: validatedData.isAllDay,
         isRecurring: validatedData.isRecurring,
-        recurrence: validatedData.recurrence || null,
+        recurrence: validatedData.recurrence ?? Prisma.JsonNull,
         organizerId: validatedData.organizerId,
         attendees: validatedData.attendeeIds ? {
           connect: validatedData.attendeeIds.map(id => ({ id }))

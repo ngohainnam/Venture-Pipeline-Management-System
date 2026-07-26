@@ -73,7 +73,7 @@ export async function GET(
       where: {
         title: 'Calendar Event Created',
         metadata: {
-          path: ['eventId'],
+          path: '$.eventId',
           equals: id
         }
       },
@@ -220,11 +220,11 @@ export async function PUT(
         OR: [
           {
             title: 'Calendar Event Created',
-            metadata: { path: ['eventId'], equals: id }
+            metadata: { path: '$.eventId', equals: id }
           },
           {
             title: 'Calendar Event Updated',
-            metadata: { path: ['eventId'], equals: id }
+            metadata: { path: '$.eventId', equals: id }
           }
         ]
       },

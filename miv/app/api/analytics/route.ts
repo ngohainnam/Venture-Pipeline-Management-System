@@ -191,41 +191,42 @@ export async function GET(request: NextRequest) {
     }
 
     // For mobile, send minimal additional data; for desktop, send full analytics
-    let analytics: any = baseAnalytics
-
-    if (!isMobile) {
-      analytics.performance = {
-        trends: performanceTrends,
-        recentActivities: recentActivities.slice(0, 20),
-        activityBreakdown: activityByType
-      }
-      analytics.workflows = {
-        total: totalWorkflows,
-        active: activeWorkflows,
-        recentRuns: workflowRuns.slice(0, 10),
-        successRate: workflowSuccessRate
-      }
-      analytics.insights = {
-        topSectors: await getTopSectors(),
-        riskFactors: calculateRiskFactors(recentActivities),
-        recommendations: generateRecommendations(gedsiComplianceRate, userEngagementRate, workflowSuccessRate)
-      }
-    } else {
-      // For mobile, include only essential performance data
-      analytics.performance = {
-        trends: performanceTrends.slice(0, 3),
-        recentActivities: recentActivities.slice(0, 5),
-        activityBreakdown: activityByType
-      }
-      analytics.workflows = {
-        total: totalWorkflows,
-        active: activeWorkflows,
-        successRate: workflowSuccessRate
-      }
-      analytics.insights = {
-        topSectors: (await getTopSectors()).slice(0, 3)
-      }
-    }
+    const analytics = !isMobile
+      ? {
+          ...baseAnalytics,
+          performance: {
+            trends: performanceTrends,
+            recentActivities: recentActivities.slice(0, 20),
+            activityBreakdown: activityByType
+          },
+          workflows: {
+            total: totalWorkflows,
+            active: activeWorkflows,
+            recentRuns: workflowRuns.slice(0, 10),
+            successRate: workflowSuccessRate
+          },
+          insights: {
+            topSectors: await getTopSectors(),
+            riskFactors: calculateRiskFactors(recentActivities),
+            recommendations: generateRecommendations(gedsiComplianceRate, userEngagementRate, workflowSuccessRate)
+          }
+        }
+      : {
+          ...baseAnalytics,
+          performance: {
+            trends: performanceTrends.slice(0, 3),
+            recentActivities: recentActivities.slice(0, 5),
+            activityBreakdown: activityByType
+          },
+          workflows: {
+            total: totalWorkflows,
+            active: activeWorkflows,
+            successRate: workflowSuccessRate
+          },
+          insights: {
+            topSectors: (await getTopSectors()).slice(0, 3)
+          }
+        }
 
     return createCachedResponse(analytics, CACHE_CONFIGS.ANALYTICS)
 
