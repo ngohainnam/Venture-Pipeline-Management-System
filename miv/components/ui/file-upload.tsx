@@ -195,10 +195,10 @@ export function FileUpload({
   return (
     <div className={cn("space-y-4", className)}>
       <div>
-        <label className="text-sm font-medium text-gray-900 dark:text-white">
+        <label className="text-sm font-medium text-foreground">
           {label}
         </label>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+        <p className="mt-1 text-sm text-muted-foreground">
           {description}
         </p>
       </div>
@@ -209,8 +209,8 @@ export function FileUpload({
         className={cn(
           "border-2 border-dashed transition-all duration-200 cursor-pointer",
           isDragActive || isDragOver 
-            ? "border-blue-500 bg-blue-50 dark:bg-blue-950/20" 
-            : "border-gray-300 hover:border-gray-400",
+            ? "border-primary bg-primary/10" 
+            : "border-border hover:border-ring",
           disabled && "cursor-not-allowed opacity-50"
         )}
       >
@@ -220,22 +220,22 @@ export function FileUpload({
             <div className={cn(
               "p-3 rounded-full",
               isDragActive || isDragOver 
-                ? "bg-blue-100 dark:bg-blue-900/30" 
-                : "bg-gray-100 dark:bg-gray-800"
+                ? "bg-primary/15" 
+                : "bg-muted"
             )}>
               <Upload className={cn(
                 "h-6 w-6",
                 isDragActive || isDragOver 
-                  ? "text-blue-600 dark:text-blue-400" 
-                  : "text-gray-400"
+                  ? "text-primary" 
+                  : "text-muted-foreground"
               )} />
             </div>
             
             <div className="space-y-2">
-              <p className="text-sm font-medium text-gray-900 dark:text-white">
+              <p className="text-sm font-medium text-foreground">
                 {isDragActive ? 'Drop files here' : 'Drag and drop files here'}
               </p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
+              <p className="text-xs text-muted-foreground">
                 or click to select files
               </p>
             </div>
@@ -253,7 +253,7 @@ export function FileUpload({
               )}
             </div>
 
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-muted-foreground">
               Max {maxFiles} files, up to {maxFileSize}MB each
             </p>
           </div>
@@ -263,7 +263,7 @@ export function FileUpload({
       {/* File List */}
       {files.length > 0 && (
         <div className="space-y-3">
-          <h4 className="text-sm font-medium text-gray-900 dark:text-white">
+          <h4 className="text-sm font-medium text-foreground">
             Uploaded Files ({files.length}/{maxFiles})
           </h4>
           
@@ -273,11 +273,11 @@ export function FileUpload({
                 <div className="flex items-center space-x-3">
                   <div className="shrink-0">
                     {file.status === 'uploading' ? (
-                      <Loader2 className="h-4 w-4 animate-spin text-blue-500" />
+                      <Loader2 className="h-4 w-4 animate-spin text-primary" />
                     ) : file.status === 'success' ? (
-                      <CheckCircle className="h-4 w-4 text-green-500" />
+                      <CheckCircle className="h-4 w-4 text-success" />
                     ) : file.status === 'error' ? (
-                      <AlertCircle className="h-4 w-4 text-red-500" />
+                      <AlertCircle className="h-4 w-4 text-destructive" />
                     ) : (
                       getFileIcon(file.type)
                     )}
@@ -285,7 +285,7 @@ export function FileUpload({
                   
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between">
-                      <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                      <p className="truncate text-sm font-medium text-foreground">
                         {file.name}
                       </p>
                       <div className="flex items-center space-x-2">
@@ -301,7 +301,7 @@ export function FileUpload({
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="h-6 w-6 p-0 hover:bg-red-100 dark:hover:bg-red-900"
+                          className="h-6 w-6 p-0 hover:bg-destructive/10 hover:text-destructive"
                           onClick={() => removeFile(file.id)}
                           disabled={disabled}
                         >
@@ -310,10 +310,10 @@ export function FileUpload({
                       </div>
                     </div>
                     
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                    <p className="text-xs text-muted-foreground">
                       {formatFileSize(file.size)}
                       {file.error && (
-                        <span className="text-red-500 ml-2">• {file.error}</span>
+                        <span className="ml-2 text-destructive">• {file.error}</span>
                       )}
                     </p>
                     

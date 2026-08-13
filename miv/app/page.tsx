@@ -106,13 +106,15 @@ export default function HomePage() {
 		document.documentElement.style.fontSize = `${fontSize}px`;
 
 		// Remove existing theme classes
-		document.documentElement.classList.remove("high-contrast", "dark-mode");
+		document.documentElement.classList.remove("high-contrast", "dark", "light");
 
 		// Apply color scheme
 		if (colorScheme === "high-contrast") {
 			document.documentElement.classList.add("high-contrast");
 		} else if (colorScheme === "dark") {
-			document.documentElement.classList.add("dark-mode");
+			document.documentElement.classList.add("dark");
+		} else {
+			document.documentElement.classList.add("light");
 		}
 	}, [fontSize, colorScheme]);
 
@@ -135,9 +137,9 @@ export default function HomePage() {
 	};
 
 	return (
-		<div className="min-h-screen bg-linear-to-b from-grey-300 via-[#f4f4f4] to-white text-gray-900">
+		<div className="min-h-screen bg-background text-foreground">
 			{/* Navigation */}
-			<nav className="sticky top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200">
+			<nav className="sticky left-0 right-0 top-0 z-50 border-b border-border bg-card/95 backdrop-blur-md">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="flex justify-between items-center h-16">
 						{/* Logo */}

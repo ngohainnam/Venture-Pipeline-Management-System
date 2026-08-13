@@ -339,7 +339,7 @@ export function AdvancedFilters({
           </div>
 
           {/* Footer */}
-          <div className="p-4 border-t bg-gray-50">
+          <div className="border-t bg-muted/40 p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 {onSaveFilter && filters.length > 0 && (

@@ -67,13 +67,13 @@ export function NotificationCenter({
   const getNotificationIcon = (type: string) => {
     switch (type) {
       case 'success':
-        return <CheckCircle className="h-5 w-5 text-green-500" />
+        return <CheckCircle className="h-5 w-5 text-success" />
       case 'warning':
-        return <AlertTriangle className="h-5 w-5 text-yellow-500" />
+        return <AlertTriangle className="h-5 w-5 text-warning" />
       case 'error':
-        return <AlertTriangle className="h-5 w-5 text-red-500" />
+        return <AlertTriangle className="h-5 w-5 text-destructive" />
       default:
-        return <Info className="h-5 w-5 text-blue-500" />
+        return <Info className="h-5 w-5 text-info" />
     }
   }
 
@@ -179,7 +179,7 @@ export function NotificationCenter({
           <TabsContent value={activeTab} className="m-0">
             <ScrollArea className="h-96">
               {filteredNotifications.length === 0 ? (
-                <div className="p-8 text-center text-gray-500">
+                <div className="p-8 text-center text-muted-foreground">
                   <Bell className="h-12 w-12 mx-auto mb-4 opacity-50" />
                   <p>No notifications</p>
                 </div>
@@ -188,8 +188,8 @@ export function NotificationCenter({
                   {filteredNotifications.map((notification) => (
                     <div
                       key={notification.id}
-                      className={`p-4 hover:bg-gray-50 transition-colors ${
-                        !notification.read ? 'bg-blue-50 border-l-4 border-l-blue-500' : ''
+                      className={`p-4 transition-colors hover:bg-muted/60 ${
+                        !notification.read ? 'border-l-4 border-l-primary bg-primary/10' : ''
                       }`}
                     >
                       <div className="flex items-start space-x-3">
@@ -202,18 +202,18 @@ export function NotificationCenter({
                             <div className="flex-1">
                               <div className="flex items-center space-x-2 mb-1">
                                 {getCategoryIcon(notification.category)}
-                                <p className="text-sm font-medium text-gray-900 truncate">
+                                <p className="truncate text-sm font-medium text-foreground">
                                   {notification.title}
                                 </p>
                                 {!notification.read && (
-                                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                  <div className="h-2 w-2 rounded-full bg-primary"></div>
                                 )}
                               </div>
-                              <p className="text-sm text-gray-600 mb-2">
+                              <p className="mb-2 text-sm text-muted-foreground">
                                 {notification.message}
                               </p>
                               <div className="flex items-center justify-between">
-                                <span className="text-xs text-gray-500">
+                                <span className="text-xs text-muted-foreground">
                                   {getTimeAgo(notification.timestamp)}
                                 </span>
                                 {notification.actionUrl && (
@@ -261,7 +261,7 @@ export function NotificationCenter({
         </Tabs>
 
         {/* Footer */}
-        <div className="p-3 border-t bg-gray-50">
+        <div className="border-t bg-muted/40 p-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <Button variant="ghost" size="sm" className="text-xs">

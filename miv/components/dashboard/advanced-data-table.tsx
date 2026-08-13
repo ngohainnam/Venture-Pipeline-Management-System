@@ -190,8 +190,8 @@ export function AdvancedDataTable({
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-semibold text-slate-900">{title}</h2>
-          <p className="text-sm text-slate-600">
+          <h2 className="text-2xl font-semibold text-foreground">{title}</h2>
+          <p className="text-sm text-muted-foreground">
             {sortedData.length} {sortedData.length === 1 ? 'item' : 'items'}
             {selectedRows.size > 0 && ` • ${selectedRows.size} selected`}
           </p>
@@ -245,12 +245,12 @@ export function AdvancedDataTable({
       <div className="flex items-center space-x-4">
         {searchable && (
           <div className="relative flex-1 max-w-sm">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 h-4 w-4" />
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               placeholder="Search..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 focus:border-blue-500 focus:ring-blue-500"
+              className="pl-10"
             />
           </div>
         )}
@@ -282,7 +282,7 @@ export function AdvancedDataTable({
       </div>
 
       {/* Table */}
-      <div className="border rounded-lg">
+      <div className="rounded-lg border">
         <Table>
           <TableHeader>
             <TableRow>
@@ -335,7 +335,7 @@ export function AdvancedDataTable({
               paginatedData.map((row, index) => (
                 <TableRow 
                   key={index}
-                  className={`${onRowClick ? 'cursor-pointer hover:bg-gray-50' : ''} ${selectedRows.has(index) ? 'bg-blue-50' : ''}`}
+                  className={`${onRowClick ? 'cursor-pointer hover:bg-muted/60' : ''} ${selectedRows.has(index) ? 'bg-primary/10' : ''}`}
                   onClick={() => onRowClick?.(row)}
                 >
                   {selectable && (
@@ -377,7 +377,7 @@ export function AdvancedDataTable({
                           </DropdownMenuItem>
                           <DropdownMenuSeparator />
                           {onDelete && (
-                            <DropdownMenuItem onClick={() => onDelete(row)} className="text-red-600">
+                            <DropdownMenuItem onClick={() => onDelete(row)} className="text-destructive">
                               <Trash2 className="h-4 w-4 mr-2" />
                               Delete
                             </DropdownMenuItem>
@@ -396,7 +396,7 @@ export function AdvancedDataTable({
       {/* Pagination */}
       {pagination && totalPages > 1 && (
         <div className="flex items-center justify-between">
-          <div className="text-sm text-gray-600">
+          <div className="text-sm text-muted-foreground">
             Showing {((currentPage - 1) * pageSize) + 1} to {Math.min(currentPage * pageSize, sortedData.length)} of {sortedData.length} results
           </div>
           

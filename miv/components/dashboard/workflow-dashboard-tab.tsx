@@ -68,7 +68,7 @@ const WORKFLOW_TEMPLATES = [
     name: "Venture Onboarding",
     description: "Automate new venture intake and initial assessment",
     icon: <Building2 className="h-5 w-5" />,
-    color: "bg-blue-100 text-blue-700",
+    color: "bg-primary/10 text-primary",
     category: "Venture Management",
     estimatedTime: "5 min setup",
     triggers: ["Venture Created"],
@@ -79,7 +79,7 @@ const WORKFLOW_TEMPLATES = [
     name: "GEDSI Compliance",
     description: "Monitor GEDSI metrics and send compliance alerts", 
     icon: <UserCheck className="h-5 w-5" />,
-    color: "bg-purple-100 text-purple-700",
+    color: "bg-chart-4/10 text-chart-4",
     category: "Compliance",
     estimatedTime: "3 min setup",
     triggers: ["Schedule", "Metric Updated"],
@@ -90,7 +90,7 @@ const WORKFLOW_TEMPLATES = [
     name: "Due Diligence Automation",
     description: "Create comprehensive DD checklists and track completion",
     icon: <CheckCircle className="h-5 w-5" />,
-    color: "bg-green-100 text-green-700", 
+    color: "bg-success/10 text-success", 
     category: "Due Diligence",
     estimatedTime: "7 min setup",
     triggers: ["Stage Changed"],
@@ -101,7 +101,7 @@ const WORKFLOW_TEMPLATES = [
     name: "Investment Pipeline",
     description: "Track ventures through investment stages automatically",
     icon: <TrendingUp className="h-5 w-5" />,
-    color: "bg-orange-100 text-orange-700",
+    color: "bg-secondary/10 text-secondary",
     category: "Investment",
     estimatedTime: "4 min setup", 
     triggers: ["Stage Changed", "Manual"],
@@ -112,7 +112,7 @@ const WORKFLOW_TEMPLATES = [
     name: "Monthly Reports",
     description: "Generate and distribute impact reports automatically",
     icon: <FileText className="h-5 w-5" />,
-    color: "bg-indigo-100 text-indigo-700",
+    color: "bg-info/10 text-info",
     category: "Reporting",
     estimatedTime: "6 min setup",
     triggers: ["Schedule"],
@@ -123,7 +123,7 @@ const WORKFLOW_TEMPLATES = [
     name: "Risk Assessment",
     description: "Automated risk analysis and mitigation planning",
     icon: <AlertTriangle className="h-5 w-5" />,
-    color: "bg-red-100 text-red-700",
+    color: "bg-destructive/10 text-destructive",
     category: "Risk Management", 
     estimatedTime: "8 min setup",
     triggers: ["Manual", "Schedule"],
@@ -221,13 +221,13 @@ export function WorkflowDashboardTab({ loading, addToast }: WorkflowDashboardTab
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'SUCCEEDED':
-        return <CheckCircle className="h-3 w-3 text-green-500" />
+        return <CheckCircle className="h-3 w-3 text-success" />
       case 'FAILED':
-        return <XCircle className="h-3 w-3 text-red-500" />
+        return <XCircle className="h-3 w-3 text-destructive" />
       case 'RUNNING':
-        return <RotateCcw className="h-3 w-3 text-blue-500 animate-spin" />
+        return <RotateCcw className="h-3 w-3 animate-spin text-primary" />
       default:
-        return <Clock className="h-3 w-3 text-gray-500" />
+        return <Clock className="h-3 w-3 text-muted-foreground" />
     }
   }
 
@@ -239,8 +239,8 @@ export function WorkflowDashboardTab({ loading, addToast }: WorkflowDashboardTab
     return (
       <div className="flex items-center justify-center py-12">
         <div className="text-center">
-          <RefreshCw className="h-8 w-8 text-gray-400 animate-spin mx-auto mb-4" />
-          <p className="text-gray-600">Loading workflow automation...</p>
+          <RefreshCw className="mx-auto mb-4 h-8 w-8 animate-spin text-muted-foreground" />
+          <p className="text-muted-foreground">Loading workflow automation...</p>
         </div>
       </div>
     )
@@ -251,8 +251,8 @@ export function WorkflowDashboardTab({ loading, addToast }: WorkflowDashboardTab
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">Workflow Automation</h2>
-          <p className="text-gray-600">Automate processes and streamline operations</p>
+          <h2 className="text-2xl font-bold text-foreground">Workflow Automation</h2>
+          <p className="text-muted-foreground">Automate processes and streamline operations</p>
         </div>
         <div className="flex items-center gap-3">
           <Button variant="outline" asChild>
@@ -275,11 +275,11 @@ export function WorkflowDashboardTab({ loading, addToast }: WorkflowDashboardTab
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                <Zap className="h-5 w-5 text-blue-600" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+                <Zap className="h-5 w-5 text-primary" />
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-600">Total Workflows</p>
+                <p className="text-sm font-medium text-muted-foreground">Total Workflows</p>
                 <p className="text-2xl font-bold">{workflowStats.total}</p>
               </div>
             </div>
@@ -288,11 +288,11 @@ export function WorkflowDashboardTab({ loading, addToast }: WorkflowDashboardTab
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                <Activity className="h-5 w-5 text-green-600" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-success/10">
+                <Activity className="h-5 w-5 text-success" />
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-600">Active</p>
+                <p className="text-sm font-medium text-muted-foreground">Active</p>
                 <p className="text-2xl font-bold">{workflowStats.active}</p>
               </div>
             </div>
@@ -301,11 +301,11 @@ export function WorkflowDashboardTab({ loading, addToast }: WorkflowDashboardTab
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                <BarChart3 className="h-5 w-5 text-purple-600" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-chart-4/10">
+                <BarChart3 className="h-5 w-5 text-chart-4" />
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-600">Total Runs</p>
+                <p className="text-sm font-medium text-muted-foreground">Total Runs</p>
                 <p className="text-2xl font-bold">{workflowStats.totalRuns}</p>
               </div>
             </div>
@@ -314,11 +314,11 @@ export function WorkflowDashboardTab({ loading, addToast }: WorkflowDashboardTab
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center">
-                <CheckCircle className="h-5 w-5 text-emerald-600" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-success/10">
+                <CheckCircle className="h-5 w-5 text-success" />
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-600">Success Rate</p>
+                <p className="text-sm font-medium text-muted-foreground">Success Rate</p>
                 <p className="text-2xl font-bold">{workflowStats.successRate}%</p>
               </div>
             </div>
@@ -389,8 +389,8 @@ export function WorkflowDashboardTab({ loading, addToast }: WorkflowDashboardTab
           <CardContent>
             {workflows.length === 0 ? (
               <div className="text-center py-8">
-                <Zap className="h-8 w-8 text-gray-400 mx-auto mb-3" />
-                <p className="text-sm text-gray-600 mb-3">No workflows created yet</p>
+                <Zap className="mx-auto mb-3 h-8 w-8 text-muted-foreground" />
+                <p className="mb-3 text-sm text-muted-foreground">No workflows created yet</p>
                 <Button size="sm" asChild>
                   <Link href="/dashboard/workflows/wizard">
                     <Plus className="h-4 w-4 mr-1" />
@@ -405,20 +405,20 @@ export function WorkflowDashboardTab({ loading, addToast }: WorkflowDashboardTab
                   const stepCount = workflow.definition?.steps?.length || 0
                   
                   return (
-                    <div key={workflow.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div key={workflow.id} className="flex items-center justify-between rounded-lg bg-muted/40 p-3">
                       <div className="flex items-center gap-3">
                         <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
-                          workflow.isActive ? 'bg-green-100' : 'bg-gray-100'
+                          workflow.isActive ? 'bg-success/10' : 'bg-muted'
                         }`}>
                           {workflow.isActive ? (
-                            <Activity className="h-4 w-4 text-green-600" />
+                            <Activity className="h-4 w-4 text-success" />
                           ) : (
-                            <Clock className="h-4 w-4 text-gray-500" />
+                            <Clock className="h-4 w-4 text-muted-foreground" />
                           )}
                         </div>
                         <div>
                           <p className="font-medium text-sm">{workflow.name}</p>
-                          <p className="text-xs text-gray-600">
+                          <p className="text-xs text-muted-foreground">
                             {triggerType} • {stepCount} steps
                           </p>
                         </div>
@@ -473,18 +473,18 @@ export function WorkflowDashboardTab({ loading, addToast }: WorkflowDashboardTab
           <CardContent>
             {recentRuns.length === 0 ? (
               <div className="text-center py-8">
-                <Activity className="h-8 w-8 text-gray-400 mx-auto mb-3" />
-                <p className="text-sm text-gray-600">No recent activity</p>
+                <Activity className="mx-auto mb-3 h-8 w-8 text-muted-foreground" />
+                <p className="text-sm text-muted-foreground">No recent activity</p>
               </div>
             ) : (
               <div className="space-y-3">
                 {recentRuns.slice(0, 5).map((run) => (
-                  <div key={run.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                  <div key={run.id} className="flex items-center justify-between rounded-lg bg-muted/40 p-3">
                     <div className="flex items-center gap-3">
                       {getStatusIcon(run.status)}
                       <div>
                         <p className="font-medium text-sm">{run.workflow.name}</p>
-                        <p className="text-xs text-gray-600">
+                        <p className="text-xs text-muted-foreground">
                           {new Date(run.startedAt).toLocaleString()}
                         </p>
                       </div>
@@ -492,10 +492,10 @@ export function WorkflowDashboardTab({ loading, addToast }: WorkflowDashboardTab
                     <Badge 
                       variant="outline"
                       className={`text-xs ${
-                        run.status === 'SUCCEEDED' ? 'text-green-600 bg-green-50' :
-                        run.status === 'FAILED' ? 'text-red-600 bg-red-50' :
-                        run.status === 'RUNNING' ? 'text-blue-600 bg-blue-50' :
-                        'text-gray-600 bg-gray-50'
+                        run.status === 'SUCCEEDED' ? 'bg-success/10 text-success' :
+                        run.status === 'FAILED' ? 'bg-destructive/10 text-destructive' :
+                        run.status === 'RUNNING' ? 'bg-primary/10 text-primary' :
+                        'bg-muted text-muted-foreground'
                       }`}
                     >
                       {run.status}
@@ -534,12 +534,12 @@ export function WorkflowDashboardTab({ loading, addToast }: WorkflowDashboardTab
                     </div>
                     <div className="flex-1">
                       <h4 className="font-semibold text-sm mb-1">{template.name}</h4>
-                      <p className="text-xs text-gray-600 mb-2">{template.description}</p>
+                      <p className="mb-2 text-xs text-muted-foreground">{template.description}</p>
                       <div className="flex items-center gap-2 mb-3">
                         <Badge variant="secondary" className="text-xs">{template.category}</Badge>
-                        <span className="text-xs text-gray-500">{template.estimatedTime}</span>
+                        <span className="text-xs text-muted-foreground">{template.estimatedTime}</span>
                       </div>
-                      <div className="flex items-center justify-between text-xs text-gray-600 mb-3">
+                      <div className="mb-3 flex items-center justify-between text-xs text-muted-foreground">
                         <span>{template.actions} actions</span>
                         <span>{template.triggers.join(', ')}</span>
                       </div>
@@ -578,19 +578,19 @@ export function WorkflowDashboardTab({ loading, addToast }: WorkflowDashboardTab
           <CardContent className="space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium">Process Automation</span>
-              <span className="text-sm text-gray-600">85%</span>
+              <span className="text-sm text-muted-foreground">85%</span>
             </div>
             <Progress value={85} className="h-2" />
             
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium">Time Saved</span>
-              <span className="text-sm text-gray-600">12 hrs/week</span>
+              <span className="text-sm text-muted-foreground">12 hrs/week</span>
             </div>
             <Progress value={75} className="h-2" />
             
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium">Error Reduction</span>
-              <span className="text-sm text-gray-600">65%</span>
+              <span className="text-sm text-muted-foreground">65%</span>
             </div>
             <Progress value={65} className="h-2" />
           </CardContent>
@@ -602,33 +602,33 @@ export function WorkflowDashboardTab({ loading, addToast }: WorkflowDashboardTab
             <CardDescription>Connected services and platforms</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
-            <div className="flex items-center justify-between p-2 bg-green-50 rounded-lg">
+            <div className="flex items-center justify-between rounded-lg bg-success/10 p-2">
               <div className="flex items-center gap-2">
-                <CheckCircle className="h-4 w-4 text-green-600" />
+                <CheckCircle className="h-4 w-4 text-success" />
                 <span className="text-sm font-medium">Email Service</span>
               </div>
-              <Badge variant="outline" className="text-green-600 bg-green-50">Connected</Badge>
+              <Badge variant="outline" className="bg-success/10 text-success">Connected</Badge>
             </div>
-            <div className="flex items-center justify-between p-2 bg-green-50 rounded-lg">
+            <div className="flex items-center justify-between rounded-lg bg-success/10 p-2">
               <div className="flex items-center gap-2">
-                <CheckCircle className="h-4 w-4 text-green-600" />
+                <CheckCircle className="h-4 w-4 text-success" />
                 <span className="text-sm font-medium">Database</span>
               </div>
-              <Badge variant="outline" className="text-green-600 bg-green-50">Connected</Badge>
+              <Badge variant="outline" className="bg-success/10 text-success">Connected</Badge>
             </div>
-            <div className="flex items-center justify-between p-2 bg-yellow-50 rounded-lg">
+            <div className="flex items-center justify-between rounded-lg bg-warning/10 p-2">
               <div className="flex items-center gap-2">
-                <Clock className="h-4 w-4 text-yellow-600" />
+                <Clock className="h-4 w-4 text-warning" />
                 <span className="text-sm font-medium">Slack Integration</span>
               </div>
-              <Badge variant="outline" className="text-yellow-600 bg-yellow-50">Pending</Badge>
+              <Badge variant="outline" className="bg-warning/10 text-warning">Pending</Badge>
             </div>
-            <div className="flex items-center justify-between p-2 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between rounded-lg bg-muted p-2">
               <div className="flex items-center gap-2">
-                <XCircle className="h-4 w-4 text-gray-500" />
+                <XCircle className="h-4 w-4 text-muted-foreground" />
                 <span className="text-sm font-medium">Calendar API</span>
               </div>
-              <Badge variant="outline" className="text-gray-600 bg-gray-50">Not Connected</Badge>
+              <Badge variant="outline" className="bg-muted text-muted-foreground">Not Connected</Badge>
             </div>
           </CardContent>
         </Card>
@@ -646,12 +646,12 @@ export function WorkflowDashboardTab({ loading, addToast }: WorkflowDashboardTab
               {workflows.slice(0, 3).map((workflow, index) => (
                 <div key={workflow.id} className="flex items-center justify-between p-3 border rounded-lg">
                   <div className="flex items-center gap-3">
-                    <div className="w-6 h-6 bg-blue-100 rounded flex items-center justify-center text-xs font-bold text-blue-600">
+                    <div className="flex h-6 w-6 items-center justify-center rounded bg-primary/10 text-xs font-bold text-primary">
                       {index + 1}
                     </div>
                     <div>
                       <p className="font-medium text-sm">{workflow.name}</p>
-                      <p className="text-xs text-gray-600">
+                      <p className="text-xs text-muted-foreground">
                         {workflow._count?.runs || 0} executions
                       </p>
                     </div>
@@ -683,19 +683,19 @@ export function WorkflowDashboardTab({ loading, addToast }: WorkflowDashboardTab
           <CardContent>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">This Week</span>
+                <span className="text-sm text-muted-foreground">This Week</span>
                 <span className="text-sm font-medium">+23% executions</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Most Active</span>
+                <span className="text-sm text-muted-foreground">Most Active</span>
                 <span className="text-sm font-medium">GEDSI Monitoring</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Peak Hours</span>
+                <span className="text-sm text-muted-foreground">Peak Hours</span>
                 <span className="text-sm font-medium">9AM - 11AM</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Avg Duration</span>
+                <span className="text-sm text-muted-foreground">Avg Duration</span>
                 <span className="text-sm font-medium">2.3 minutes</span>
               </div>
             </div>
@@ -710,22 +710,22 @@ export function WorkflowDashboardTab({ loading, addToast }: WorkflowDashboardTab
           <CardContent>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">System Status</span>
+                <span className="text-sm text-muted-foreground">System Status</span>
                 <div className="flex items-center gap-1">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  <span className="text-sm font-medium text-green-600">Healthy</span>
+                  <div className="h-2 w-2 rounded-full bg-success"></div>
+                  <span className="text-sm font-medium text-success">Healthy</span>
                 </div>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Queue Status</span>
+                <span className="text-sm text-muted-foreground">Queue Status</span>
                 <span className="text-sm font-medium">0 pending</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Last Maintenance</span>
+                <span className="text-sm text-muted-foreground">Last Maintenance</span>
                 <span className="text-sm font-medium">2 days ago</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Uptime</span>
+                <span className="text-sm text-muted-foreground">Uptime</span>
                 <span className="text-sm font-medium">99.8%</span>
               </div>
             </div>

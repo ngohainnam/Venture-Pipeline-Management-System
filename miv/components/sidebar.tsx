@@ -46,19 +46,19 @@ export function Sidebar() {
     <>
       <aside
         className={cn(
-          "fixed left-0 top-0 w-64 h-screen bg-linear-to-b from-slate-900 via-slate-800 to-slate-900/95 backdrop-blur-md text-slate-100 shadow-2xl border-r border-slate-800 flex flex-col z-50 transition-all duration-300",
+          "fixed left-0 top-0 z-50 flex h-screen w-64 flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground shadow-lg transition-all duration-300",
           isCollapsed && "w-16",
         )}
       >
         {/* Header */}
-        <div className="p-6 border-b border-slate-800 flex items-center gap-3 hover:bg-slate-800/50 transition-colors duration-200">
+        <div className="flex items-center gap-3 border-b border-sidebar-border p-6">
           <Logo size={isCollapsed ? "sm" : "md"} />
           {!isCollapsed && (
             <div>
-              <h1 className="text-xl font-bold text-white tracking-wide">
+              <h1 className="text-xl font-bold tracking-wide text-sidebar-foreground">
                 MIV
               </h1>
-              <p className="text-slate-400 text-xs font-medium">
+              <p className="text-xs font-medium text-sidebar-foreground/65">
                 Enterprise Platform
               </p>
             </div>
@@ -67,20 +67,20 @@ export function Sidebar() {
 
         {/* Global Search Button */}
         {!isCollapsed && (
-          <div className="p-4 border-b border-slate-800">
+          <div className="border-b border-sidebar-border p-4">
             <button
               onClick={globalSearch.open}
-              className="w-full flex items-center gap-3 px-4 py-2.5 bg-slate-800/50 border border-slate-700 rounded-lg text-slate-400 hover:bg-slate-800 hover:border-slate-600 hover:text-slate-300 transition-all group"
+              className="group flex w-full items-center gap-3 rounded-md border border-sidebar-border bg-sidebar-accent px-4 py-2.5 text-sidebar-foreground/70 transition-colors hover:bg-sidebar-accent/80 hover:text-sidebar-foreground focus-visible:ring-2 focus-visible:ring-sidebar-ring"
             >
               <Search className="h-4 w-4 shrink-0" />
               <span className="flex-1 text-left text-sm">
                 Search everything...
               </span>
               <div className="flex items-center gap-1 text-xs">
-                <kbd className="px-1.5 py-0.5 bg-slate-700 border border-slate-600 rounded text-slate-400 font-mono group-hover:bg-slate-600 transition-colors">
+                <kbd className="rounded border border-sidebar-border bg-sidebar px-1.5 py-0.5 font-mono text-sidebar-foreground/60 transition-colors">
                   {navigator.platform.includes("Mac") ? "⌘" : "Ctrl"}
                 </kbd>
-                <kbd className="px-1.5 py-0.5 bg-slate-700 border border-slate-600 rounded text-slate-400 font-mono group-hover:bg-slate-600 transition-colors">
+                <kbd className="rounded border border-sidebar-border bg-sidebar px-1.5 py-0.5 font-mono text-sidebar-foreground/60 transition-colors">
                   K
                 </kbd>
               </div>
@@ -89,7 +89,7 @@ export function Sidebar() {
         )}
 
         {/* Navigation */}
-        <nav className="flex-1 px-3 py-6 space-y-6 overflow-y-auto">
+        <nav className="flex-1 space-y-6 overflow-y-auto px-3 py-6">
           {dashboardDesktopNavigationItems.map((item) => (
             <div key={item.title}>
               {/* Main Navigation Item */}
@@ -100,13 +100,13 @@ export function Sidebar() {
                       href={item.href}
                       aria-current={isActive(item.href) ? "page" : undefined}
                       className={cn(
-                        "group flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-900 w-full",
+                        "group flex w-full items-center rounded-md px-3 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-sidebar-ring focus:ring-offset-2 focus:ring-offset-sidebar",
                         isActive(item.href)
-                          ? "bg-blue-600/20 text-blue-100 border-l-4 border-blue-500"
-                          : "text-slate-300 hover:bg-slate-800/80 hover:text-white hover:border-l-4 hover:border-slate-600",
+                          ? "bg-sidebar-primary text-sidebar-primary-foreground"
+                          : "text-sidebar-foreground/75 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
                       )}
                     >
-                      <item.icon className="mr-3 h-5 w-5 transition-colors text-slate-400 group-hover:text-slate-300" />
+                      <item.icon className="mr-3 h-5 w-5 transition-colors" />
                       {!isCollapsed && (
                         <>
                           <span className="flex-1">{item.title}</span>
@@ -123,12 +123,12 @@ export function Sidebar() {
                       type="button"
                       onClick={() => toggleExpanded(item.title)}
                       className={cn(
-                        "group flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 cursor-pointer w-full text-left",
-                        "text-slate-300 hover:bg-slate-800/80 hover:text-white hover:border-l-4 hover:border-slate-600",
+                        "group flex w-full cursor-pointer items-center rounded-md px-3 py-2 text-left text-sm font-medium transition-colors",
+                        "text-sidebar-foreground/75 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
                       )}
                       aria-expanded={isExpanded(item.title)}
                     >
-                      <item.icon className="mr-3 h-5 w-5 transition-colors text-slate-400 group-hover:text-slate-300" />
+                      <item.icon className="mr-3 h-5 w-5 transition-colors" />
                       {!isCollapsed && (
                         <>
                           <span className="flex-1">{item.title}</span>
@@ -149,7 +149,7 @@ export function Sidebar() {
                       size="sm"
                       onClick={() => toggleExpanded(item.title)}
                       aria-label={`${isExpanded(item.title) ? "Collapse" : "Expand"} ${item.title}`}
-                      className="h-6 w-6 p-0 text-slate-400 hover:text-slate-300 ml-1 shrink-0"
+                      className="ml-1 h-6 w-6 shrink-0 p-0 text-sidebar-foreground/65 hover:bg-sidebar-accent hover:text-sidebar-foreground"
                     >
                       {isExpanded(item.title) ? (
                         <ChevronDown className="h-4 w-4" />
@@ -171,10 +171,10 @@ export function Sidebar() {
                           child.href && isActive(child.href) ? "page" : undefined
                         }
                         className={cn(
-                          "group flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-900",
+                          "group flex items-center rounded-md px-3 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-sidebar-ring focus:ring-offset-2 focus:ring-offset-sidebar",
                           child.href && isActive(child.href)
-                            ? "bg-blue-600/20 text-blue-100 border-l-2 border-blue-500"
-                            : "text-slate-400 hover:bg-slate-800/60 hover:text-slate-200 hover:border-l-2 hover:border-slate-600",
+                            ? "bg-sidebar-primary text-sidebar-primary-foreground"
+                            : "text-sidebar-foreground/65 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
                         )}
                       >
                         <child.icon className="mr-3 h-4 w-4 transition-colors" />
@@ -189,7 +189,7 @@ export function Sidebar() {
         </nav>
 
         {/* Footer */}
-        <div className="p-4 border-t border-slate-800">
+        <div className="border-t border-sidebar-border p-4">
           {!isCollapsed && (
             <div className="space-y-3">
               {/* Quick Actions */}
@@ -197,7 +197,7 @@ export function Sidebar() {
                 <Button
                   size="sm"
                   variant="outline"
-                  className="flex-1 text-xs text-slate-700 border-slate-300 hover:bg-slate-100 hover:text-slate-900"
+                  className="flex-1 border-sidebar-border bg-sidebar-accent text-xs text-sidebar-foreground hover:bg-sidebar-primary hover:text-sidebar-primary-foreground"
                 >
                   <Plus className="h-3 w-3 mr-1" />
                   New Venture
@@ -205,7 +205,7 @@ export function Sidebar() {
                 <Button
                   size="sm"
                   variant="outline"
-                  className="flex-1 text-xs text-slate-700 border-slate-300 hover:bg-slate-100 hover:text-slate-900"
+                  className="flex-1 border-sidebar-border bg-sidebar-accent text-xs text-sidebar-foreground hover:bg-sidebar-primary hover:text-sidebar-primary-foreground"
                 >
                   <BarChart className="h-3 w-3 mr-1" />
                   Report
@@ -214,37 +214,37 @@ export function Sidebar() {
 
               
 
-              <div className="flex items-center space-x-3 p-2 bg-slate-800/50 rounded-lg">
-                <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+              <div className="flex items-center space-x-3 rounded-md bg-sidebar-accent p-2">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-sidebar-primary text-sidebar-primary-foreground">
                   {isAuthenticated && user ? (
-                    <span className="text-sm font-bold text-white">
+                    <span className="text-sm font-bold">
                       {(
                         user.firstName.charAt(0) + user.lastName.charAt(0)
                       ).toUpperCase()}
                     </span>
                   ) : (
-                    <User className="h-4 w-4 text-white" />
+                    <User className="h-4 w-4" />
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
                   {loading ? (
                     <>
-                      <p className="text-sm font-medium text-slate-100 truncate">
+                      <p className="truncate text-sm font-medium text-sidebar-foreground">
                         Loading...
                       </p>
-                      <p className="text-xs text-slate-400 truncate">
+                      <p className="truncate text-xs text-sidebar-foreground/60">
                         Please wait
                       </p>
                     </>
                   ) : isAuthenticated && user ? (
                     <>
-                      <p className="text-sm font-medium text-slate-100 truncate">
+                      <p className="truncate text-sm font-medium text-sidebar-foreground">
                         {user.firstName} {user.lastName}
                       </p>
-                      <p className="text-xs text-slate-400 truncate">
+                      <p className="truncate text-xs text-sidebar-foreground/60">
                         {user.email}
                       </p>
-                      <p className="text-[10px] text-slate-500 truncate">
+                      <p className="truncate text-[10px] text-sidebar-foreground/45">
                         ID: {user.id}
                       </p>
                     </>
@@ -291,7 +291,7 @@ export function Sidebar() {
             size="sm"
             onClick={() => setIsCollapsed(!isCollapsed)}
             aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-            className="w-full mt-2 text-slate-400 hover:text-slate-300"
+            className="mt-2 w-full text-sidebar-foreground/65 hover:bg-sidebar-accent hover:text-sidebar-foreground"
           >
             {isCollapsed ? (
               <ChevronRight className="h-4 w-4" />

@@ -294,22 +294,22 @@ export function AnalyticsDashboard({
   const getChangeIcon = (changeType: string) => {
     switch (changeType) {
       case 'increase':
-        return <TrendingUp className="h-4 w-4 text-emerald-500" />
+        return <TrendingUp className="h-4 w-4 text-success" />
       case 'decrease':
-        return <TrendingDown className="h-4 w-4 text-red-500" />
+        return <TrendingDown className="h-4 w-4 text-destructive" />
       default:
-        return <Activity className="h-4 w-4 text-gray-500" />
+        return <Activity className="h-4 w-4 text-muted-foreground" />
     }
   }
 
   const getChangeColor = (changeType: string) => {
     switch (changeType) {
       case 'increase':
-        return 'text-emerald-600 font-semibold'
+        return 'text-success font-semibold'
       case 'decrease':
-        return 'text-red-600 font-semibold'
+        return 'text-destructive font-semibold'
       default:
-        return 'text-gray-600'
+        return 'text-muted-foreground'
     }
   }
 
@@ -330,7 +330,7 @@ export function AnalyticsDashboard({
     const options: any = (chart as any)?.options || {}
     const persisted = chartOptionsMap[chart.id] || {}
     const mergedOptions = { ...options, ...persisted }
-    const palette = (mergedOptions.palette as string[]) || ['#6366F1','#22C55E','#F59E0B','#EC4899','#06B6D4','#84CC16']
+    const palette = (mergedOptions.palette as string[]) || ['var(--chart-1)','var(--chart-4)','var(--chart-5)','var(--chart-3)','var(--chart-2)']
     const primaryColor = mergedOptions.color || palette[0]
     const showConversionLabels = mergedOptions.showConversionLabels !== false
     const showDeltaLabels = mergedOptions.showDeltaLabels !== false
@@ -508,8 +508,8 @@ export function AnalyticsDashboard({
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">{title}</h1>
-          <p className="text-slate-600 font-medium">Real-time insights and performance metrics</p>
+          <h1 className="text-3xl font-bold text-foreground">{title}</h1>
+          <p className="font-medium text-muted-foreground">Real-time insights and performance metrics</p>
         </div>
         
         <div className="flex items-center space-x-3">
@@ -559,15 +559,15 @@ export function AnalyticsDashboard({
       {widgetConfig.keyMetrics && (
       <div className={`grid ${layoutMode === 'compact' ? 'grid-cols-2' : 'grid-cols-1 md:grid-cols-2'} ${layoutMode === 'wide' ? 'lg:grid-cols-5' : 'lg:grid-cols-4'} gap-6`}>
         {metrics.map((metric, index) => (
-          <Card key={index} className="border-0 shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-105 bg-gradient-to-br from-white to-gray-50/50">
+          <Card key={index} className="shadow-sm transition-shadow duration-200 hover:shadow-md">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-gray-600 mb-1">{metric.title}</p>
+                  <p className="mb-1 text-sm font-medium text-muted-foreground">{metric.title}</p>
                   <div className="flex items-baseline space-x-2">
-                    <p className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">{metric.value}</p>
+                    <p className="text-3xl font-bold text-foreground">{metric.value}</p>
                     {metric.change !== 0 && (
-                      <div className={`flex items-center space-x-1 px-2 py-1 rounded-full ${getChangeColor(metric.changeType)} ${metric.changeType === 'increase' ? 'bg-emerald-50' : 'bg-red-50'}`}>
+                      <div className={`flex items-center space-x-1 rounded-full px-2 py-1 ${getChangeColor(metric.changeType)} ${metric.changeType === 'increase' ? 'bg-success/10' : 'bg-destructive/10'}`}>
                         {getChangeIcon(metric.changeType)}
                         <span className="text-sm font-medium">
                           {Math.abs(metric.change)}%
@@ -576,10 +576,10 @@ export function AnalyticsDashboard({
                     )}
                   </div>
                   {metric.subtitle && (
-                    <p className="text-xs text-gray-500 mt-1">{metric.subtitle}</p>
+                    <p className="mt-1 text-xs text-muted-foreground">{metric.subtitle}</p>
                   )}
                 </div>
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${metric.color} transform transition-all duration-300 hover:scale-110 hover:shadow-xl`}>
+                <div className={`flex h-12 w-12 items-center justify-center rounded-lg ${metric.color}`}>
                   {metric.icon}
                 </div>
               </div>
@@ -601,7 +601,7 @@ export function AnalyticsDashboard({
           >
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-lg font-semibold text-gray-900">
+                <CardTitle className="text-lg font-semibold text-foreground">
                   {chart.title}
                 </CardTitle>
                 <div className="flex items-center space-x-2">
@@ -615,20 +615,20 @@ export function AnalyticsDashboard({
               </div>
             </CardHeader>
             <CardContent>
-              <div className="bg-white rounded-lg">
+              <div className="rounded-lg bg-card">
                 <ChartRenderer chart={{...chart, options: { ...chart.options, ...(chartOptionsMap[chart.id] || {}) }}} />
                 
                 
                 {isCustomizing && (
                   <div className="mt-4 flex flex-wrap items-center gap-3 text-sm">
-                    <span className="text-gray-600">Customize:</span>
+                    <span className="text-muted-foreground">Customize:</span>
                     <Button variant={customizingChartId === chart.id ? 'default' : 'outline'} size="sm" onClick={() => setCustomizingChartId(customizingChartId === chart.id ? null : chart.id)}>
                       {customizingChartId === chart.id ? 'Editing' : 'Edit this chart'}
                     </Button>
                     {customizingChartId === chart.id && (
                       <>
-                        <span className="text-gray-600 ml-2">Color:</span>
-                        {['#0EA5E9','#22C55E','#F59E0B','#EF4444','#8B5CF6','#06B6D4'].map((c) => (
+                        <span className="ml-2 text-muted-foreground">Color:</span>
+                        {['#00709B','#15803D','#D97706','#F05125','#00B4D8'].map((c) => (
                           <button
                         key={c}
                         type="button"
@@ -674,8 +674,8 @@ export function AnalyticsDashboard({
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="border-0 shadow-sm">
           <CardHeader className="pb-4">
-            <CardTitle className="text-lg font-semibold text-gray-900 flex items-center">
-              <AlertTriangle className="h-5 w-5 text-orange-500 mr-2" />
+            <CardTitle className="flex items-center text-lg font-semibold text-foreground">
+              <AlertTriangle className="mr-2 h-5 w-5 text-warning" />
               Active Alerts
             </CardTitle>
           </CardHeader>
@@ -692,24 +692,21 @@ export function AnalyticsDashboard({
               ) : (
                 generateRealAlerts(ventures).map((alert, index) => (
                   <div key={index} className={`flex items-start space-x-3 p-3 rounded-lg ${
-                    alert.type === 'risk' ? 'bg-red-50' :
-                    alert.type === 'warning' ? 'bg-yellow-50' : 'bg-blue-50'
+                    alert.type === 'risk' ? 'bg-destructive/10' :
+                    alert.type === 'warning' ? 'bg-warning/10' : 'bg-info/10'
                   }`}>
-                    {alert.type === 'risk' ? <AlertTriangle className="h-5 w-5 text-red-500 mt-0.5" /> :
-                     alert.type === 'warning' ? <Clock className="h-5 w-5 text-yellow-500 mt-0.5" /> :
-                     <Zap className="h-5 w-5 text-blue-500 mt-0.5" />}
+                    {alert.type === 'risk' ? <AlertTriangle className="mt-0.5 h-5 w-5 text-destructive" /> :
+                     alert.type === 'warning' ? <Clock className="mt-0.5 h-5 w-5 text-warning" /> :
+                     <Zap className="mt-0.5 h-5 w-5 text-info" />}
                     <div className="flex-1">
                       <p className={`text-sm font-medium ${
-                        alert.type === 'risk' ? 'text-red-900' :
-                        alert.type === 'warning' ? 'text-yellow-900' : 'text-blue-900'
+                        'text-foreground'
                       }`}>{alert.title}</p>
                       <p className={`text-xs ${
-                        alert.type === 'risk' ? 'text-red-700' :
-                        alert.type === 'warning' ? 'text-yellow-700' : 'text-blue-700'
+                        'text-muted-foreground'
                       }`}>{alert.message}</p>
                       <p className={`text-xs mt-1 ${
-                        alert.type === 'risk' ? 'text-red-600' :
-                        alert.type === 'warning' ? 'text-yellow-600' : 'text-blue-600'
+                        'text-muted-foreground'
                       }`}>{alert.time}</p>
                     </div>
                   </div>
@@ -721,8 +718,8 @@ export function AnalyticsDashboard({
 
         <Card className="border-0 shadow-sm">
           <CardHeader className="pb-4">
-            <CardTitle className="text-lg font-semibold text-gray-900 flex items-center">
-              <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+            <CardTitle className="flex items-center text-lg font-semibold text-foreground">
+              <CheckCircle className="mr-2 h-5 w-5 text-success" />
               Recent Activities
             </CardTitle>
           </CardHeader>
@@ -738,15 +735,15 @@ export function AnalyticsDashboard({
                 </div>
               ) : (
                 generateRecentActivities(ventures).map((activity, index) => (
-                  <div key={index} className="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
-                    {activity.type === 'assessment' ? <CheckCircle className="h-5 w-5 text-green-500 mt-0.5" /> :
-                     activity.type === 'team' ? <Users className="h-5 w-5 text-blue-500 mt-0.5" /> :
-                     activity.type === 'funding' ? <DollarSign className="h-5 w-5 text-green-500 mt-0.5" /> :
-                     <Target className="h-5 w-5 text-purple-500 mt-0.5" />}
+                  <div key={index} className="flex items-start space-x-3 rounded-lg p-3 transition-colors hover:bg-muted/60">
+                    {activity.type === 'assessment' ? <CheckCircle className="mt-0.5 h-5 w-5 text-success" /> :
+                     activity.type === 'team' ? <Users className="mt-0.5 h-5 w-5 text-info" /> :
+                     activity.type === 'funding' ? <DollarSign className="mt-0.5 h-5 w-5 text-success" /> :
+                     <Target className="mt-0.5 h-5 w-5 text-primary" />}
                     <div className="flex-1">
-                      <p className="text-sm font-medium text-gray-900">{activity.title}</p>
-                      <p className="text-xs text-gray-600">{activity.message}</p>
-                      <p className="text-xs text-gray-500 mt-1">{activity.time}</p>
+                      <p className="text-sm font-medium text-foreground">{activity.title}</p>
+                      <p className="text-xs text-muted-foreground">{activity.message}</p>
+                      <p className="mt-1 text-xs text-muted-foreground">{activity.time}</p>
                     </div>
                   </div>
                 ))
@@ -759,16 +756,16 @@ export function AnalyticsDashboard({
 
       {/* Customization Panel */}
       {isCustomizing && (
-        <Card className="border-2 border-blue-200 bg-blue-50">
+        <Card className="border-primary/30 bg-primary/10">
           <CardHeader>
-            <CardTitle className="text-lg font-semibold text-blue-900">
+            <CardTitle className="text-lg font-semibold text-foreground">
               Dashboard Customization
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
-                <h4 className="font-medium text-blue-900 mb-2">Widgets</h4>
+                <h4 className="mb-2 font-medium text-foreground">Widgets</h4>
                 <div className="space-y-2">
                   <label className="flex items-center space-x-2">
                     <input type="checkbox" className="rounded" checked={widgetConfig.keyMetrics} onChange={(e) => persistWidgets({ ...widgetConfig, keyMetrics: e.target.checked })} />
@@ -786,7 +783,7 @@ export function AnalyticsDashboard({
               </div>
               
               <div>
-                <h4 className="font-medium text-blue-900 mb-2">Layout</h4>
+                <h4 className="mb-2 font-medium text-foreground">Layout</h4>
                 <div className="space-y-2">
                   <label className="flex items-center space-x-2">
                     <input type="radio" name="layout" className="rounded" checked={layoutMode==='standard'} onChange={() => persistLayout('standard')} />
@@ -804,7 +801,7 @@ export function AnalyticsDashboard({
               </div>
               
               <div>
-                <h4 className="font-medium text-blue-900 mb-2">Actions</h4>
+                <h4 className="mb-2 font-medium text-foreground">Actions</h4>
                 <div className="space-y-2">
                   <Button size="sm" className="w-full" onClick={() => { try { localStorage.setItem('analytics.widgets', JSON.stringify(widgetConfig)); localStorage.setItem('analytics.layout', layoutMode) } catch {}; setIsCustomizing(false) }}>Save Layout</Button>
                   <Button variant="outline" size="sm" className="w-full" onClick={() => { persistWidgets({ keyMetrics: true, performanceCharts: true, alertsPanel: true }); persistLayout('standard') }}>Reset to Default</Button>

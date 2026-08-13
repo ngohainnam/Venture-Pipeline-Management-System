@@ -114,7 +114,14 @@ interface Venture {
   calculatedAt?: string | null
 }
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8', '#82ca9d']
+const COLORS = [
+  'var(--chart-1)',
+  'var(--chart-2)',
+  'var(--chart-3)',
+  'var(--chart-4)',
+  'var(--chart-5)',
+  'var(--accent)'
+]
 
 export function GEDSITracker() {
   const [metrics, setMetrics] = useState<GEDSIMetric[]>([])
@@ -311,10 +318,10 @@ export function GEDSITracker() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'Verified': return 'bg-green-100 text-green-800 border-green-200'
-      case 'In Progress': return 'bg-blue-100 text-blue-800 border-blue-200'
-      case 'Overdue': return 'bg-red-100 text-red-800 border-red-200'
-      default: return 'bg-gray-100 text-gray-800 border-gray-200'
+      case 'Verified': return 'border-success/25 bg-success/10 text-success'
+      case 'In Progress': return 'border-primary/25 bg-primary/10 text-primary'
+      case 'Overdue': return 'border-destructive/25 bg-destructive/10 text-destructive'
+      default: return 'border-border bg-muted text-muted-foreground'
     }
   }
 
@@ -331,10 +338,10 @@ export function GEDSITracker() {
     return (
       <div className="space-y-6">
         <div className="animate-pulse">
-          <div className="h-8 bg-gray-200 rounded w-1/4 mb-6"></div>
+          <div className="mb-6 h-8 w-1/4 rounded bg-muted"></div>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
             {[...Array(4)].map((_, i) => (
-              <div key={i} className="h-24 bg-gray-200 rounded"></div>
+              <div key={i} className="h-24 rounded bg-muted"></div>
             ))}
           </div>
         </div>
@@ -347,7 +354,7 @@ export function GEDSITracker() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold bg-linear-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+          <h1 className="text-2xl font-bold text-foreground">
             GEDSI Intelligence Hub
           </h1>
           <p className="text-muted-foreground">
@@ -359,7 +366,7 @@ export function GEDSITracker() {
             <Download className="h-4 w-4 mr-2" />
             {isExporting ? 'Exporting...' : 'UN Standards Report'}
           </Button>
-          <Button variant="outline" className="bg-linear-to-r from-blue-50 to-indigo-50 border-blue-200">
+          <Button variant="outline" className="border-primary/25 bg-primary/10 text-primary hover:bg-primary/15">
             <Sparkles className="h-4 w-4 mr-2" />
             AI Insights
           </Button>
@@ -390,57 +397,57 @@ export function GEDSITracker() {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-            <div className="text-center p-4 bg-pink-50 dark:bg-pink-900/20 rounded-lg border-l-4 border-l-pink-500">
-              <div className="text-2xl font-bold text-pink-600 dark:text-pink-400">
+            <div className="rounded-lg border-l-4 border-l-chart-3 bg-chart-3/10 p-4 text-center">
+              <div className="text-2xl font-bold text-chart-3">
                 {Math.round(metrics.filter(m => m.category === 'Gender').length > 0 ? 
                   (metrics.filter(m => m.category === 'Gender' && m.status === 'Verified').length / 
                    metrics.filter(m => m.category === 'Gender').length) * 100 : 0)}%
               </div>
-              <div className="text-sm text-slate-600 dark:text-slate-400">Gender Equality</div>
-              <div className="text-xs text-pink-600">
+              <div className="text-sm text-muted-foreground">Gender Equality</div>
+              <div className="text-xs text-chart-3">
                 {metrics.filter(m => m.category === 'Gender').length} metrics
               </div>
             </div>
-            <div className="text-center p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg border-l-4 border-l-purple-500">
-              <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
+            <div className="rounded-lg border-l-4 border-l-chart-4 bg-chart-4/10 p-4 text-center">
+              <div className="text-2xl font-bold text-chart-4">
                 {Math.round(metrics.filter(m => m.category === 'Disability').length > 0 ? 
                   (metrics.filter(m => m.category === 'Disability' && m.status === 'Verified').length / 
                    metrics.filter(m => m.category === 'Disability').length) * 100 : 0)}%
               </div>
-              <div className="text-sm text-slate-600 dark:text-slate-400">Disability Inclusion</div>
-              <div className="text-xs text-purple-600">
+              <div className="text-sm text-muted-foreground">Disability Inclusion</div>
+              <div className="text-xs text-chart-4">
                 {metrics.filter(m => m.category === 'Disability').length} metrics
               </div>
             </div>
-            <div className="text-center p-4 bg-cyan-50 dark:bg-cyan-900/20 rounded-lg border-l-4 border-l-cyan-500">
-              <div className="text-2xl font-bold text-cyan-600 dark:text-cyan-400">
+            <div className="rounded-lg border-l-4 border-l-info bg-info/10 p-4 text-center">
+              <div className="text-2xl font-bold text-info">
                 {Math.round(metrics.filter(m => m.category === 'Social Inclusion').length > 0 ? 
                   (metrics.filter(m => m.category === 'Social Inclusion' && m.status === 'Verified').length / 
                    metrics.filter(m => m.category === 'Social Inclusion').length) * 100 : 0)}%
               </div>
-              <div className="text-sm text-slate-600 dark:text-slate-400">Social Inclusion</div>
-              <div className="text-xs text-cyan-600">
+              <div className="text-sm text-muted-foreground">Social Inclusion</div>
+              <div className="text-xs text-info">
                 {metrics.filter(m => m.category === 'Social Inclusion').length} metrics
               </div>
             </div>
-            <div className="text-center p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg border-l-4 border-l-orange-500">
-              <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">
+            <div className="rounded-lg border-l-4 border-l-warning bg-warning/10 p-4 text-center">
+              <div className="text-2xl font-bold text-warning">
                 {Math.round(metrics.filter(m => m.category === 'Cross-cutting').length > 0 ? 
                   (metrics.filter(m => m.category === 'Cross-cutting' && m.status === 'Verified').length / 
                    metrics.filter(m => m.category === 'Cross-cutting').length) * 100 : 0)}%
               </div>
-              <div className="text-sm text-slate-600 dark:text-slate-400">Cross-cutting</div>
-              <div className="text-xs text-orange-600">
+              <div className="text-sm text-muted-foreground">Cross-cutting</div>
+              <div className="text-xs text-warning">
                 {metrics.filter(m => m.category === 'Cross-cutting').length} metrics
               </div>
             </div>
-            <div className="text-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border-l-4 border-l-blue-500">
-              <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+            <div className="rounded-lg border-l-4 border-l-primary bg-primary/10 p-4 text-center">
+              <div className="text-2xl font-bold text-primary">
                 {Math.round(metrics.length > 0 ? 
                   (metrics.filter(m => m.status === 'Verified').length / metrics.length) * 100 : 0)}%
               </div>
-              <div className="text-sm text-slate-600 dark:text-slate-400">Overall Progress</div>
-              <div className="text-xs text-blue-600">
+              <div className="text-sm text-muted-foreground">Overall Progress</div>
+              <div className="text-xs text-primary">
                 {metrics.length} total metrics
               </div>
             </div>
@@ -449,16 +456,16 @@ export function GEDSITracker() {
       </Card>
 
       {/* Enhanced AI Insights with UN Standards */}
-      <Card className="bg-linear-to-br from-purple-50 via-blue-50 to-indigo-50 border-0 shadow-lg">
+      <Card className="border-primary/20 bg-primary/10 shadow-sm">
         <CardHeader>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <Sparkles className="h-5 w-5 text-purple-600" />
-              <CardTitle className="bg-linear-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              <Sparkles className="h-5 w-5 text-primary" />
+              <CardTitle>
                 AI-Powered GEDSI Intelligence
               </CardTitle>
             </div>
-            <Badge className="bg-purple-600 text-white">UN Standards Compliant</Badge>
+            <Badge className="bg-primary text-primary-foreground">UN Standards Compliant</Badge>
           </div>
           <CardDescription>
             Machine learning insights based on UN Women, Washington Group, and IRIS+ frameworks
@@ -466,10 +473,10 @@ export function GEDSITracker() {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-4 bg-white/80 rounded-lg border">
+            <div className="rounded-lg border bg-card p-4">
               <div className="flex items-center space-x-2 mb-2">
-                <TrendingUp className="h-4 w-4 text-green-600" />
-                <h4 className="font-semibold text-green-800">Performance Trends</h4>
+                <TrendingUp className="h-4 w-4 text-success" />
+                <h4 className="font-semibold text-foreground">Performance Trends</h4>
               </div>
               <p className="text-sm text-muted-foreground mb-2">
                 {metrics.length > 0 ? 
@@ -477,28 +484,28 @@ export function GEDSITracker() {
                   'No metrics to analyze yet'
                 }
               </p>
-              <div className="text-xs text-green-600">
+              <div className="text-xs text-success">
                 {ventures.filter(v => v.inclusionFocus && v.inclusionFocus.length > 0).length}/{ventures.length} ventures with inclusion focus
               </div>
             </div>
             
-            <div className="p-4 bg-white/80 rounded-lg border">
+            <div className="rounded-lg border bg-card p-4">
               <div className="flex items-center space-x-2 mb-2">
-                <Lightbulb className="h-4 w-4 text-blue-600" />
-                <h4 className="font-semibold text-blue-800">UN Standards Integration</h4>
+                <Lightbulb className="h-4 w-4 text-primary" />
+                <h4 className="font-semibold text-foreground">UN Standards Integration</h4>
               </div>
               <p className="text-sm text-muted-foreground mb-2">
                 Washington Group Short Set implementation recommended for disability data collection
               </p>
-              <div className="text-xs text-blue-600">
+              <div className="text-xs text-primary">
                 IRIS+ framework integration: {metrics.length > 0 ? 'Active' : 'Ready'}
               </div>
             </div>
             
-            <div className="p-4 bg-white/80 rounded-lg border">
+            <div className="rounded-lg border bg-card p-4">
               <div className="flex items-center space-x-2 mb-2">
-                <AlertCircle className="h-4 w-4 text-orange-600" />
-                <h4 className="font-semibold text-orange-800">Priority Actions</h4>
+                <AlertCircle className="h-4 w-4 text-warning" />
+                <h4 className="font-semibold text-foreground">Priority Actions</h4>
               </div>
               <p className="text-sm text-muted-foreground mb-2">
                 {metrics.filter(m => m.status === 'Not Started').length > 0 ? 
@@ -506,7 +513,7 @@ export function GEDSITracker() {
                   'All metrics are actively tracked'
                 }
               </p>
-              <div className="text-xs text-orange-600">
+              <div className="text-xs text-warning">
                 Focus on disability inclusion metrics
               </div>
             </div>
@@ -612,7 +619,7 @@ export function GEDSITracker() {
                       <TableCell>
                         <div>
                           <div className="font-medium">{metric.metricCode}</div>
-                          <div className="text-sm text-slate-500">{metric.metricName}</div>
+                          <div className="text-sm text-muted-foreground">{metric.metricName}</div>
                         </div>
                       </TableCell>
                       <TableCell>
@@ -650,7 +657,7 @@ export function GEDSITracker() {
                   <div key={venture.ventureId} className="flex items-center justify-between p-4 border rounded-lg">
                     <div className="flex-1">
                       <h4 className="font-medium">{venture.ventureName}</h4>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-muted-foreground">
                         {venture.verifiedMetrics} of {venture.totalMetrics} metrics verified
                       </p>
                     </div>
@@ -672,11 +679,11 @@ export function GEDSITracker() {
 
         <TabsContent value="washington-group" className="space-y-6">
           {/* Washington Group Short Set Implementation */}
-          <Card className="bg-linear-to-br from-blue-50 to-indigo-50 border-0 shadow-lg">
+          <Card className="border-primary/20 bg-primary/10 shadow-sm">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Shield className="h-5 w-5 text-blue-600" />
-                <span className="bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                <Shield className="h-5 w-5 text-primary" />
+                <span>
                   Washington Group Short Set
                 </span>
               </CardTitle>
@@ -686,7 +693,7 @@ export function GEDSITracker() {
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
-                <Alert className="border-l-4 border-l-blue-500 bg-blue-50">
+                <Alert className="border-l-4 border-l-primary bg-primary/10">
                   <Info className="h-4 w-4" />
                   <AlertDescription>
                     The Washington Group Short Set provides internationally comparable disability data 
@@ -705,7 +712,7 @@ export function GEDSITracker() {
                       'Do you have difficulty with self-care such as washing all over or dressing?',
                       'Using your usual language, do you have difficulty communicating?'
                     ].map((question, index) => (
-                      <div key={index} className="p-3 border rounded-lg bg-white/80">
+                      <div key={index} className="rounded-lg border bg-card p-3">
                         <div className="flex items-center justify-between mb-2">
                           <Badge variant="outline" className="text-xs">Question {index + 1}</Badge>
                           <Badge variant="secondary" className="text-xs">UN Standard</Badge>
@@ -725,12 +732,12 @@ export function GEDSITracker() {
                   <div className="space-y-4">
                     <h4 className="font-medium">Implementation Status</h4>
                     <div className="space-y-3">
-                      <div className="p-4 border rounded-lg bg-white/80">
+                      <div className="rounded-lg border bg-card p-4">
                         <div className="flex items-center justify-between mb-2">
                           <span className="font-medium">Venture Implementation</span>
                           <Badge className={`${
-                            ventures.filter(v => v.washingtonShortSet).length > 0 ? 'bg-green-600' : 'bg-yellow-600'
-                          } text-white`}>
+                            ventures.filter(v => v.washingtonShortSet).length > 0 ? 'bg-success text-success-foreground' : 'bg-warning text-warning-foreground'
+                          }`}>
                             {ventures.filter(v => v.washingtonShortSet).length > 0 ? 'Active' : 'Pending'}
                           </Badge>
                         </div>
@@ -743,10 +750,10 @@ export function GEDSITracker() {
                         </p>
                       </div>
 
-                      <div className="p-4 border rounded-lg bg-white/80">
+                      <div className="rounded-lg border bg-card p-4">
                         <div className="flex items-center justify-between mb-2">
                           <span className="font-medium">Data Quality</span>
-                          <Badge className="bg-green-600 text-white">High</Badge>
+                          <Badge className="bg-success text-success-foreground">High</Badge>
                         </div>
                         <Progress value={85} className="h-2 mb-2" />
                         <p className="text-sm text-muted-foreground">
@@ -754,10 +761,10 @@ export function GEDSITracker() {
                         </p>
                       </div>
 
-                      <div className="p-4 border rounded-lg bg-white/80">
+                      <div className="rounded-lg border bg-card p-4">
                         <div className="flex items-center justify-between mb-2">
                           <span className="font-medium">UN Compliance</span>
-                          <Badge className="bg-blue-600 text-white">Compliant</Badge>
+                          <Badge className="bg-primary text-primary-foreground">Compliant</Badge>
                         </div>
                         <Progress value={100} className="h-2 mb-2" />
                         <p className="text-sm text-muted-foreground">
@@ -766,7 +773,7 @@ export function GEDSITracker() {
                       </div>
                     </div>
 
-                    <Button className="w-full bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700">
+                    <Button className="w-full">
                       <Plus className="mr-2 h-4 w-4" />
                       Implement WG-SS Assessment
                     </Button>
@@ -797,7 +804,7 @@ export function GEDSITracker() {
                       <XAxis dataKey="category" />
                       <YAxis />
                       <Tooltip />
-                      <Bar dataKey="completionRate" fill="#8884d8" />
+                      <Bar dataKey="completionRate" fill="var(--chart-1)" />
                     </BarChart>
                   </ResponsiveContainer>
                 </div>
@@ -819,7 +826,7 @@ export function GEDSITracker() {
                         labelLine={false}
                         label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
                         outerRadius={80}
-                        fill="#8884d8"
+                        fill="var(--chart-1)"
                         dataKey="value"
                       >
                         {COLORS.map((color, index) => (
@@ -924,24 +931,24 @@ function AddMetricForm({ onSubmit, ventures }: { onSubmit: (data: any) => void, 
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search by code or name (e.g., PI4060 or Women)"
         />
-        {searching && <p className="text-xs text-gray-500">Searching...</p>}
+        {searching && <p className="text-xs text-muted-foreground">Searching...</p>}
         {results.length > 0 && (
-          <div className="max-h-48 overflow-auto border rounded p-2 space-y-1 bg-white">
+          <div className="max-h-48 space-y-1 overflow-auto rounded border bg-popover p-2 text-popover-foreground">
             {results.map((r) => (
               <button
                 key={r.code}
                 type="button"
-                className="w-full text-left px-2 py-1 hover:bg-gray-50 rounded"
+                className="w-full rounded px-2 py-1 text-left hover:bg-accent hover:text-accent-foreground"
                 onClick={() => applyMetric(r)}
               >
                 <div className="flex items-center justify-between">
-                  <span className="font-medium mr-2">{r.code}</span>
+                  <span className="mr-2 font-medium">{r.code}</span>
                   {r.gedsiSuggestion && (
                     <Badge variant="outline">{r.gedsiSuggestion}</Badge>
                   )}
                 </div>
-                <div className="text-sm text-gray-700">{r.name}</div>
-                {r.unit && <div className="text-xs text-gray-500">Unit: {r.unit}</div>}
+                <div className="text-sm text-popover-foreground">{r.name}</div>
+                {r.unit && <div className="text-xs text-muted-foreground">Unit: {r.unit}</div>}
               </button>
             ))}
           </div>

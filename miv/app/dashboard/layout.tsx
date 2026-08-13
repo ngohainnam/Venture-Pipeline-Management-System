@@ -26,10 +26,10 @@ export default function DashboardLayout({
 
 	if (loading) {
 		return (
-			<div className="flex items-center justify-center min-h-screen">
+			<div className="flex min-h-screen items-center justify-center bg-background text-foreground">
 				<div className="flex items-center space-x-2">
-					<div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-					<span className="text-gray-600">Loading...</span>
+					<div className="h-8 w-8 animate-spin rounded-full border-b-2 border-primary"></div>
+					<span className="text-muted-foreground">Loading...</span>
 				</div>
 			</div>
 		);
@@ -37,17 +37,17 @@ export default function DashboardLayout({
 
 	if (!isAuthenticated) {
 		return (
-			<div className="flex items-center justify-center min-h-screen bg-gray-50">
+			<div className="flex min-h-screen items-center justify-center bg-background">
 				<div className="text-center">
-					<h1 className="text-2xl font-bold text-gray-900 mb-4">
+					<h1 className="mb-4 text-2xl font-bold text-foreground">
 						Access Required
 					</h1>
-					<p className="text-gray-600 mb-6">
+					<p className="mb-6 text-muted-foreground">
 						Please sign in to access the dashboard.
 					</p>
 					<Link
 						href="/"
-						className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+						className="inline-flex items-center rounded-md bg-primary px-4 py-2 text-primary-foreground transition-colors hover:bg-primary/90"
 					>
 						Go to Homepage
 					</Link>
@@ -57,7 +57,7 @@ export default function DashboardLayout({
 	}
 
 	return (
-		<div className="flex min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-blue-950 transition-colors duration-300">
+		<div className="app-surface flex min-h-screen text-foreground transition-colors duration-300">
 			{/* Desktop Sidebar */}
 			<div className="hidden lg:block">
 				<Sidebar />
@@ -69,7 +69,7 @@ export default function DashboardLayout({
 			</div>
 
 			{/* Main Content */}
-			<div className="flex-1 flex flex-col min-w-0 lg:ml-64">
+			<div className="flex min-w-0 flex-1 flex-col lg:ml-64">
 				<div className="p-4 pt-20 pb-20 lg:p-6 lg:pt-6 lg:pb-0">
 					<Breadcrumb />
 					{children}

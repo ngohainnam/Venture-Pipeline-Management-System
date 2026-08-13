@@ -46,21 +46,21 @@ export function Breadcrumb() {
   }
 
   return (
-    <nav className="flex items-center space-x-1 text-sm text-slate-600 dark:text-slate-400 mb-4">
+    <nav className="mb-4 flex items-center space-x-1 text-sm text-muted-foreground">
       {breadcrumbs.map((item, index) => (
         <div key={item.label} className="flex items-center">
           {index > 0 && (
-            <ChevronRight className="h-4 w-4 mx-1 text-slate-400" />
+            <ChevronRight className="mx-1 h-4 w-4 text-muted-foreground" />
           )}
           
           {item.current ? (
-            <span className="font-medium text-slate-900 dark:text-slate-100">
+            <span className="font-medium text-foreground">
               {item.label}
             </span>
           ) : (
             <Link
               href={item.href || '#'}
-              className="hover:text-slate-900 dark:hover:text-slate-100 transition-colors flex items-center"
+              className="flex items-center transition-colors hover:text-foreground"
             >
               {index === 0 ? (
                 <Home className="h-4 w-4" />

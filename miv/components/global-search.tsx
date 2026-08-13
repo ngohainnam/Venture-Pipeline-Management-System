@@ -45,50 +45,50 @@ const RESULT_TYPE_CONFIG = {
   venture: {
     icon: Building2,
     label: 'Ventures',
-    color: 'text-blue-500',
-    bgColor: 'bg-blue-500/10'
+    color: 'text-primary',
+    bgColor: 'bg-primary/10'
   },
   user: {
     icon: Users,
     label: 'Users',
-    color: 'text-green-500',
-    bgColor: 'bg-green-500/10'
+    color: 'text-success',
+    bgColor: 'bg-success/10'
   },
   document: {
     icon: FileText,
     label: 'Documents',
-    color: 'text-purple-500',
-    bgColor: 'bg-purple-500/10'
+    color: 'text-chart-4',
+    bgColor: 'bg-chart-4/10'
   },
   fund: {
     icon: DollarSign,
     label: 'Funds',
-    color: 'text-yellow-500',
-    bgColor: 'bg-yellow-500/10'
+    color: 'text-warning',
+    bgColor: 'bg-warning/10'
   },
   project: {
     icon: FolderKanban,
     label: 'Projects',
-    color: 'text-orange-500',
-    bgColor: 'bg-orange-500/10'
+    color: 'text-secondary',
+    bgColor: 'bg-secondary/10'
   },
   gedsi: {
     icon: Award,
     label: 'GEDSI Metrics',
-    color: 'text-pink-500',
-    bgColor: 'bg-pink-500/10'
+    color: 'text-chart-3',
+    bgColor: 'bg-chart-3/10'
   },
   capital: {
     icon: TrendingUp,
     label: 'Capital Activities',
-    color: 'text-indigo-500',
-    bgColor: 'bg-indigo-500/10'
+    color: 'text-chart-1',
+    bgColor: 'bg-chart-1/10'
   },
   task: {
     icon: Calendar,
     label: 'Tasks',
-    color: 'text-teal-500',
-    bgColor: 'bg-teal-500/10'
+    color: 'text-accent',
+    bgColor: 'bg-accent/10'
   }
 }
 
@@ -253,30 +253,30 @@ export function GlobalSearch({ isOpen, onClose }: GlobalSearchProps) {
     <>
       {/* Backdrop */}
       <div 
-        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 animate-in fade-in duration-200"
+        className="fixed inset-0 z-50 animate-in bg-foreground/45 backdrop-blur-sm duration-200 fade-in"
         onClick={onClose}
       />
 
       {/* Search Modal */}
-      <div className="fixed inset-0 z-50 flex items-start justify-center pt-[10vh] px-4">
-        <div className="w-full max-w-2xl bg-slate-900 rounded-xl shadow-2xl border border-slate-700 overflow-hidden animate-in zoom-in-95 duration-200">
+      <div className="fixed inset-0 z-50 flex items-start justify-center px-4 pt-[10vh]">
+        <div className="w-full max-w-2xl overflow-hidden rounded-lg border border-border bg-popover text-popover-foreground shadow-xl animate-in duration-200 zoom-in-95">
           {/* Search Input */}
-          <div className="flex items-center gap-3 px-4 py-4 border-b border-slate-700">
-            <Search className="h-5 w-5 text-slate-400 shrink-0" />
+          <div className="flex items-center gap-3 border-b border-border px-4 py-4">
+            <Search className="h-5 w-5 shrink-0 text-muted-foreground" />
             <input
               ref={inputRef}
               type="text"
               placeholder="Search ventures, documents, users, funds..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              className="flex-1 bg-transparent text-slate-100 placeholder-slate-400 outline-none text-lg"
+              className="flex-1 bg-transparent text-lg text-popover-foreground outline-none placeholder:text-muted-foreground"
             />
-            {isLoading && <Loader2 className="h-5 w-5 text-slate-400 animate-spin" />}
+            {isLoading && <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />}
             <button
               onClick={onClose}
-              className="p-1 hover:bg-slate-800 rounded transition-colors"
+              className="rounded p-1 text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
             >
-              <X className="h-5 w-5 text-slate-400" />
+              <X className="h-5 w-5" />
             </button>
           </div>
 
@@ -285,12 +285,12 @@ export function GlobalSearch({ isOpen, onClose }: GlobalSearchProps) {
             {!query && recentSearches.length > 0 && (
               <div className="p-4">
                 <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                  <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                     Recent Searches
                   </h3>
                   <button
                     onClick={clearRecentSearches}
-                    className="text-xs text-slate-500 hover:text-slate-400 transition-colors"
+                    className="text-xs text-muted-foreground transition-colors hover:text-foreground"
                   >
                     Clear
                   </button>
@@ -300,10 +300,10 @@ export function GlobalSearch({ isOpen, onClose }: GlobalSearchProps) {
                     <button
                       key={index}
                       onClick={() => handleRecentSearch(search)}
-                      className="w-full flex items-center gap-3 px-3 py-2 text-left hover:bg-slate-800/50 rounded-lg transition-colors group"
+                      className="group flex w-full items-center gap-3 rounded-md px-3 py-2 text-left transition-colors hover:bg-accent"
                     >
-                      <Clock className="h-4 w-4 text-slate-500 group-hover:text-slate-400" />
-                      <span className="text-sm text-slate-300 group-hover:text-slate-100">
+                      <Clock className="h-4 w-4 text-muted-foreground group-hover:text-accent-foreground" />
+                      <span className="text-sm text-popover-foreground">
                         {search}
                       </span>
                     </button>
@@ -314,9 +314,9 @@ export function GlobalSearch({ isOpen, onClose }: GlobalSearchProps) {
 
             {query && !isLoading && results.length === 0 && (
               <div className="p-12 text-center">
-                <Search className="h-12 w-12 mx-auto mb-4 text-slate-600" />
-                <p className="text-slate-400 mb-2">No results found</p>
-                <p className="text-sm text-slate-500">
+                <Search className="mx-auto mb-4 h-12 w-12 text-muted-foreground" />
+                <p className="mb-2 text-muted-foreground">No results found</p>
+                <p className="text-sm text-muted-foreground">
                   Try searching for ventures, documents, or users
                 </p>
               </div>
@@ -332,10 +332,10 @@ export function GlobalSearch({ isOpen, onClose }: GlobalSearchProps) {
                     <div key={type} className="mb-4">
                       <div className="px-4 py-2 flex items-center gap-2">
                         <config.icon className={cn("h-4 w-4", config.color)} />
-                        <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                        <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                           {config.label}
                         </h3>
-                        <span className="text-xs text-slate-500">({items.length})</span>
+                        <span className="text-xs text-muted-foreground">({items.length})</span>
                       </div>
                       <div className="space-y-1 px-2">
                         {items.map((result, index) => {
@@ -345,48 +345,48 @@ export function GlobalSearch({ isOpen, onClose }: GlobalSearchProps) {
                               key={result.id}
                               onClick={() => handleSelectResult(result)}
                               className={cn(
-                                "w-full flex items-center gap-3 px-3 py-3 rounded-lg transition-all group",
+                                "group flex w-full items-center gap-3 rounded-md px-3 py-3 transition-colors",
                                 globalIndex === selectedIndex
-                                  ? "bg-slate-800 ring-2 ring-blue-500/50"
-                                  : "hover:bg-slate-800/50"
+                                  ? "bg-accent text-accent-foreground ring-2 ring-ring/50"
+                                  : "hover:bg-accent/60"
                               )}
                             >
                               <div className={cn(
-                                "p-2 rounded-lg shrink-0",
+                                "shrink-0 rounded-md p-2",
                                 config.bgColor
                               )}>
                                 <config.icon className={cn("h-4 w-4", config.color)} />
                               </div>
                               <div className="flex-1 text-left min-w-0">
-                                <div className="text-sm font-medium text-slate-100 group-hover:text-white truncate">
+                                <div className="truncate text-sm font-medium text-popover-foreground">
                                   {result.title}
                                 </div>
                                 {result.subtitle && (
-                                  <div className="text-xs text-slate-400 truncate">
+                                  <div className="truncate text-xs text-muted-foreground">
                                     {result.subtitle}
                                   </div>
                                 )}
                                 {result.description && (
-                                  <div className="text-xs text-slate-500 truncate mt-0.5">
+                                  <div className="mt-0.5 truncate text-xs text-muted-foreground">
                                     {result.description}
                                   </div>
                                 )}
                                 {result.metadata && (
                                   <div className="flex items-center gap-2 mt-1">
                                     {result.metadata.status && (
-                                      <span className="text-xs px-2 py-0.5 bg-slate-800 text-slate-400 rounded">
+                                      <span className="rounded bg-muted px-2 py-0.5 text-xs text-muted-foreground">
                                         {result.metadata.status}
                                       </span>
                                     )}
                                     {result.metadata.stage && (
-                                      <span className="text-xs px-2 py-0.5 bg-slate-800 text-slate-400 rounded">
+                                      <span className="rounded bg-muted px-2 py-0.5 text-xs text-muted-foreground">
                                         {result.metadata.stage}
                                       </span>
                                     )}
                                   </div>
                                 )}
                               </div>
-                              <ChevronRight className="h-4 w-4 text-slate-600 group-hover:text-slate-400 shrink-0" />
+                              <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground group-hover:text-accent-foreground" />
                             </button>
                           )
                         })}
@@ -399,24 +399,24 @@ export function GlobalSearch({ isOpen, onClose }: GlobalSearchProps) {
           </div>
 
           {/* Footer */}
-          <div className="px-4 py-3 border-t border-slate-700 bg-slate-900/50">
-            <div className="flex items-center justify-between text-xs text-slate-500">
+          <div className="border-t border-border bg-muted/40 px-4 py-3">
+            <div className="flex items-center justify-between text-xs text-muted-foreground">
               <div className="flex items-center gap-4">
                 <span className="flex items-center gap-1.5">
-                  <kbd className="px-2 py-1 bg-slate-800 rounded text-slate-400 font-mono">↑↓</kbd>
+                  <kbd className="rounded bg-background px-2 py-1 font-mono text-muted-foreground">↑↓</kbd>
                   Navigate
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <kbd className="px-2 py-1 bg-slate-800 rounded text-slate-400 font-mono">↵</kbd>
+                  <kbd className="rounded bg-background px-2 py-1 font-mono text-muted-foreground">↵</kbd>
                   Select
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <kbd className="px-2 py-1 bg-slate-800 rounded text-slate-400 font-mono">Esc</kbd>
+                  <kbd className="rounded bg-background px-2 py-1 font-mono text-muted-foreground">Esc</kbd>
                   Close
                 </span>
               </div>
               {results.length > 0 && (
-                <span className="text-slate-400">
+                <span className="text-muted-foreground">
                   {results.length} result{results.length !== 1 ? 's' : ''}
                 </span>
               )}

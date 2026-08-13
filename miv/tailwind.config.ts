@@ -20,66 +20,74 @@ const config: Config = {
     },
     extend: {
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+        border: "var(--border)",
+        input: "var(--input)",
+        ring: "var(--ring)",
+        background: "var(--background)",
+        foreground: "var(--foreground)",
         primary: {
-          DEFAULT: "#2563eb", // Professional blue-600
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: "var(--primary)",
+          foreground: "var(--primary-foreground)",
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
+          DEFAULT: "var(--secondary)",
+          foreground: "var(--secondary-foreground)",
         },
         destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
+          DEFAULT: "var(--destructive)",
+          foreground: "var(--destructive-foreground)",
         },
         muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
+          DEFAULT: "var(--muted)",
+          foreground: "var(--muted-foreground)",
         },
         accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
+          DEFAULT: "var(--accent)",
+          foreground: "var(--accent-foreground)",
         },
         popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
+          DEFAULT: "var(--popover)",
+          foreground: "var(--popover-foreground)",
         },
         card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
+          DEFAULT: "var(--card)",
+          foreground: "var(--card-foreground)",
+        },
+        success: {
+          DEFAULT: "var(--success)",
+          foreground: "var(--success-foreground)",
+        },
+        warning: {
+          DEFAULT: "var(--warning)",
+          foreground: "var(--warning-foreground)",
+        },
+        info: {
+          DEFAULT: "var(--info)",
+          foreground: "var(--info-foreground)",
         },
         chart: {
-          "1": "#2563eb", // Professional blue-600
-          "2": "#059669", // Emerald-600
-          "3": "#dc2626", // Red-600
-          "4": "#7c3aed", // Violet-600
-          "5": "#ea580c", // Orange-600
+          "1": "var(--chart-1)",
+          "2": "var(--chart-2)",
+          "3": "var(--chart-3)",
+          "4": "var(--chart-4)",
+          "5": "var(--chart-5)",
         },
-        // MIV Brand Colors
         miv: {
-          primary: "#2563eb", // Professional blue
-          secondary: "#059669", // Southeast Asian green
-          accent: "#dc2626", // Cambodian red
-          gold: "#f59e0b", // Temple gold
-          teal: "#0d9488", // Mekong river teal
+          primary: "#00709B",
+          secondary: "#F05125",
+          accent: "#00B4D8",
+          neutral: "#0F172A",
         },
-        // GEDSI Colors
         gedsi: {
-          gender: "#ec4899", // Pink for gender equality
-          disability: "#8b5cf6", // Purple for disability inclusion
-          social: "#06b6d4", // Cyan for social inclusion
+          gender: "#C026D3",
+          disability: "#7C3AED",
+          social: "#00709B",
         },
-        // Status Colors
         status: {
-          pipeline: "#3b82f6", // Blue for pipeline
-          assessment: "#f59e0b", // Amber for assessment
-          facilitation: "#10b981", // Green for facilitation
-          completed: "#059669", // Dark green for completed
+          pipeline: "#00709B",
+          assessment: "#D97706",
+          facilitation: "#00B4D8",
+          completed: "#15803D",
         },
       },
       borderRadius: {
